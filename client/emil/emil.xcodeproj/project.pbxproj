@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B1FEB501FA2F85E007E1977 /* Coupon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B1FEB4F1FA2F85E007E1977 /* Coupon.storyboard */; };
+		3B1FEB521FA2F8A0007E1977 /* Smileage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B1FEB511FA2F8A0007E1977 /* Smileage.storyboard */; };
+		3B1FEB541FA2F8BF007E1977 /* EditTimetable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B1FEB531FA2F8BF007E1977 /* EditTimetable.storyboard */; };
 		7C10DCFA1FA2ED9900B30090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C10DCF91FA2ED9900B30090 /* AppDelegate.swift */; };
 		7C10DCFC1FA2ED9900B30090 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C10DCFB1FA2ED9900B30090 /* ViewController.swift */; };
-		7C10DCFF1FA2ED9900B30090 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C10DCFD1FA2ED9900B30090 /* Main.storyboard */; };
+		7C10DCFF1FA2ED9900B30090 /* Timetable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C10DCFD1FA2ED9900B30090 /* Timetable.storyboard */; };
 		7C10DD011FA2ED9900B30090 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C10DD001FA2ED9900B30090 /* Assets.xcassets */; };
 		7C10DD041FA2ED9900B30090 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C10DD021FA2ED9900B30090 /* LaunchScreen.storyboard */; };
 		7C10DD0F1FA2ED9900B30090 /* emilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C10DD0E1FA2ED9900B30090 /* emilTests.swift */; };
@@ -34,10 +37,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B1FEB4F1FA2F85E007E1977 /* Coupon.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Coupon.storyboard; sourceTree = "<group>"; };
+		3B1FEB511FA2F8A0007E1977 /* Smileage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Smileage.storyboard; sourceTree = "<group>"; };
+		3B1FEB531FA2F8BF007E1977 /* EditTimetable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditTimetable.storyboard; sourceTree = "<group>"; };
 		7C10DCF61FA2ED9900B30090 /* emil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = emil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C10DCF91FA2ED9900B30090 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C10DCFB1FA2ED9900B30090 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7C10DCFE1FA2ED9900B30090 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7C10DCFE1FA2ED9900B30090 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Timetable.storyboard; sourceTree = "<group>"; };
 		7C10DD001FA2ED9900B30090 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C10DD031FA2ED9900B30090 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C10DD051FA2ED9900B30090 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,7 +105,10 @@
 			children = (
 				7C10DCF91FA2ED9900B30090 /* AppDelegate.swift */,
 				7C10DCFB1FA2ED9900B30090 /* ViewController.swift */,
-				7C10DCFD1FA2ED9900B30090 /* Main.storyboard */,
+				7C10DCFD1FA2ED9900B30090 /* Timetable.storyboard */,
+				3B1FEB4F1FA2F85E007E1977 /* Coupon.storyboard */,
+				3B1FEB511FA2F8A0007E1977 /* Smileage.storyboard */,
+				3B1FEB531FA2F8BF007E1977 /* EditTimetable.storyboard */,
 				7C10DD001FA2ED9900B30090 /* Assets.xcassets */,
 				7C10DD021FA2ED9900B30090 /* LaunchScreen.storyboard */,
 				7C10DD051FA2ED9900B30090 /* Info.plist */,
@@ -232,9 +241,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B1FEB541FA2F8BF007E1977 /* EditTimetable.storyboard in Resources */,
+				3B1FEB501FA2F85E007E1977 /* Coupon.storyboard in Resources */,
 				7C10DD041FA2ED9900B30090 /* LaunchScreen.storyboard in Resources */,
 				7C10DD011FA2ED9900B30090 /* Assets.xcassets in Resources */,
-				7C10DCFF1FA2ED9900B30090 /* Main.storyboard in Resources */,
+				3B1FEB521FA2F8A0007E1977 /* Smileage.storyboard in Resources */,
+				7C10DCFF1FA2ED9900B30090 /* Timetable.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,12 +308,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7C10DCFD1FA2ED9900B30090 /* Main.storyboard */ = {
+		7C10DCFD1FA2ED9900B30090 /* Timetable.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				7C10DCFE1FA2ED9900B30090 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Timetable.storyboard;
 			sourceTree = "<group>";
 		};
 		7C10DD021FA2ED9900B30090 /* LaunchScreen.storyboard */ = {

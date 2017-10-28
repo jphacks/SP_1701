@@ -13,6 +13,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
     
     var audioRecorder: AVAudioRecorder?
+    
+    var dirURL: NSURL?
+    var recordingURL: NSURL?
+    let fileName = "recording.caf"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,9 @@ class ViewController: UIViewController {
             // (ここではエラーとして停止している）
             fatalError("session有効化失敗")
         }
+        
+        dirURL = documentsDirectoryURL()
+        recordingURL = dirURL?.appendingPathComponent(fileName) as NSURL?
         
         self.setupAudioRecorder()
         
@@ -66,7 +73,6 @@ class ViewController: UIViewController {
         }
         
     }
-    
     /// DocumentsのURLを取得
     func documentsDirectoryURL() -> NSURL {
         let urls = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
@@ -82,10 +88,40 @@ class ViewController: UIViewController {
     @IBAction func startRecordButtonTapped(_ sender: Any) {
         if (audioRecorder?.isRecording)! {
             audioRecorder?.stop()
+            fileUpload()
         }else{
             audioRecorder?.record()
         }
     }
     
+    func fileUpload(){
+        let myUrl:NSURL = NSURL(string: "http://kentaiwami.jp")!
+        let fileurldata:Data = try! Data(contentsOf:recordingURL! as URL)
+        let request = NSMutableURLRequest(url: myUrl as URL)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let base64String = fileurldata.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
+        let params = ["sound":[ "content_type": "audio/aac", "filename":"test.m4a", "file_data": base64String]]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions(rawValue: 0))
+    
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            if let data = data, let response = response {
+                print(response)
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
+                    print(json)
+                } catch {
+                    print("Serialize Error")
+                }
+            } else {
+                print(error ?? "Error")
+            }
+        }
+        task.resume()
+    }
+        
 }
+
+
 

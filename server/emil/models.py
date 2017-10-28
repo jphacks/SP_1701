@@ -11,9 +11,16 @@ def gen_rand_str():
 
 class User(models.Model):
     random_id = models.CharField(max_length=10, default=gen_rand_str, unique=True, blank=False)
-    smileage = models.IntegerField(default=0)
+    available_smileage = models.IntegerField(default=0)
+    used_smileage = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.random_id
 
 
-class Laughs(models.Model):
+class Laugh(models.Model):
     user = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.random_id

@@ -102,7 +102,7 @@ class ViewController: UIViewController {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         let base64String = fileurldata.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
-        let params = ["sound":[ "content_type": "audio/aac", "filename":"test.m4a", "file_data": base64String]]
+        let params = ["sound":[ "content_type": "audio/x-caf", "filename":"recording.caf", "file_data": base64String]]
         request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions(rawValue: 0))
     
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in

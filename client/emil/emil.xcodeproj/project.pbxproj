@@ -13,6 +13,9 @@
 		3B1FEB591FA420C7007E1977 /* TimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1FEB581FA420C7007E1977 /* TimeTable.swift */; };
 		3B1FEB5B1FA423E1007E1977 /* Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1FEB5A1FA423E1007E1977 /* Coupon.swift */; };
 		3B1FEB5D1FA42995007E1977 /* TimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1FEB5C1FA42995007E1977 /* TimeTableCell.swift */; };
+		3B3F1AC11FA4C7FD007A73C4 /* CustomCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3F1ABF1FA4C7FD007A73C4 /* CustomCellTableViewCell.swift */; };
+		3B3F1AC21FA4C7FD007A73C4 /* CustomCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F1AC01FA4C7FD007A73C4 /* CustomCellTableViewCell.xib */; };
+		3B3F1AC71FA4F1C9007A73C4 /* EditCoupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3F1AC61FA4F1C9007A73C4 /* EditCoupon.swift */; };
 		7C10DCFA1FA2ED9900B30090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C10DCF91FA2ED9900B30090 /* AppDelegate.swift */; };
 		7C10DCFC1FA2ED9900B30090 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C10DCFB1FA2ED9900B30090 /* ViewController.swift */; };
 		7C10DCFF1FA2ED9900B30090 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C10DCFD1FA2ED9900B30090 /* Main.storyboard */; };
@@ -46,6 +49,9 @@
 		3B1FEB581FA420C7007E1977 /* TimeTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTable.swift; sourceTree = "<group>"; };
 		3B1FEB5A1FA423E1007E1977 /* Coupon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coupon.swift; sourceTree = "<group>"; };
 		3B1FEB5C1FA42995007E1977 /* TimeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCell.swift; sourceTree = "<group>"; };
+		3B3F1ABF1FA4C7FD007A73C4 /* CustomCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellTableViewCell.swift; sourceTree = "<group>"; };
+		3B3F1AC01FA4C7FD007A73C4 /* CustomCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCellTableViewCell.xib; sourceTree = "<group>"; };
+		3B3F1AC61FA4F1C9007A73C4 /* EditCoupon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCoupon.swift; sourceTree = "<group>"; };
 		7C10DCF61FA2ED9900B30090 /* emil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = emil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C10DCF91FA2ED9900B30090 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C10DCFB1FA2ED9900B30090 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -117,7 +123,10 @@
 				3B1FEB5C1FA42995007E1977 /* TimeTableCell.swift */,
 				3B1FEB4F1FA2F85E007E1977 /* Coupon.storyboard */,
 				3B1FEB5A1FA423E1007E1977 /* Coupon.swift */,
+				3B3F1ABF1FA4C7FD007A73C4 /* CustomCellTableViewCell.swift */,
+				3B3F1AC01FA4C7FD007A73C4 /* CustomCellTableViewCell.xib */,
 				3B1FEB531FA2F8BF007E1977 /* EditCoupon.storyboard */,
+				3B3F1AC61FA4F1C9007A73C4 /* EditCoupon.swift */,
 				7C10DD001FA2ED9900B30090 /* Assets.xcassets */,
 				7C10DD021FA2ED9900B30090 /* LaunchScreen.storyboard */,
 				7C10DD051FA2ED9900B30090 /* Info.plist */,
@@ -255,6 +264,7 @@
 				7C10DD041FA2ED9900B30090 /* LaunchScreen.storyboard in Resources */,
 				7C10DD011FA2ED9900B30090 /* Assets.xcassets in Resources */,
 				3B1FEB561FA2FAE5007E1977 /* Timetable.storyboard in Resources */,
+				3B3F1AC21FA4C7FD007A73C4 /* CustomCellTableViewCell.xib in Resources */,
 				7C10DCFF1FA2ED9900B30090 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,6 +292,8 @@
 			files = (
 				7C10DCFC1FA2ED9900B30090 /* ViewController.swift in Sources */,
 				3B1FEB5D1FA42995007E1977 /* TimeTableCell.swift in Sources */,
+				3B3F1AC11FA4C7FD007A73C4 /* CustomCellTableViewCell.swift in Sources */,
+				3B3F1AC71FA4F1C9007A73C4 /* EditCoupon.swift in Sources */,
 				3B1FEB591FA420C7007E1977 /* TimeTable.swift in Sources */,
 				7C10DCFA1FA2ED9900B30090 /* AppDelegate.swift in Sources */,
 				3B1FEB5B1FA423E1007E1977 /* Coupon.swift in Sources */,

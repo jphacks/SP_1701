@@ -20,6 +20,18 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func moveTimeTable(_ sender: Any) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Timetable", bundle: nil)
+        let next: UIViewController = storyboard.instantiateInitialViewController()!
+        present(next, animated: true, completion: nil)
+    }
+    
+    @IBAction func moveCoupon(_ sender: Any) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Coupon", bundle: nil)
+        let next: UIViewController = storyboard.instantiateInitialViewController()!
+        present(next, animated: true, completion: nil)
+    }
+    
+    
 }
 

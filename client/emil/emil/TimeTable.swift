@@ -25,15 +25,30 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     @IBOutlet weak var timetabelColelctionView: UICollectionView!
     
-    let weekArray = ["日", "月", "火", "水", "木", "金", "土"]
-    let cellMargin: CGFloat = 2.0
-
+    var weekArray = ["","日", "月", "火", "水", "木", "金", "土",
+                     "1", "", "", "", "", "", "", "",
+                     "2", "", "", "", "", "", "", "",
+                     "休", "", "", "", "", "", "", "",
+                     "3", "", "", "", "", "", "", "",
+                     "4", "", "", "", "", "", "", "",
+                     "昼", "", "", "", "", "", "", "",
+                     "5", "", "", "", "", "", "", "",
+                     "6", "", "", "", "", "", "", "",
+                     "放", "", "", "", "", "", "", ""]
+    
+    let cellMargin: CGFloat = 0.0 //マージン
+    
+    var comment = ""
+//    let linePoint: CGFloat = 5     // 罫線の太さ
+//    let numberOfCols: CGFloat = 7  // 1行に表示するセルの数
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         timetabelColelctionView.delegate = self
         timetabelColelctionView.dataSource = self
-        timetabelColelctionView.backgroundColor = UIColor.white
+        timetabelColelctionView.backgroundColor = UIColor.black
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,49 +56,50 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         // Dispose of any resources that can be recreated.
     }
     
-    //1
+    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 2
+        return 1
     }
-    //2
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // Section毎にCellの総数を変える.
-        if section == 0 {
-            return 7
-        } else {
-            return 70
+        switch(section){
+        case 0:
+            return 80
+            
+        default:
+            print("error")
+            return 0
         }
     }
     //3
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath) as! CalendarCell
-        
-        //テキストカラー
-        if (indexPath.row % 7 == 0) {
-            cell.textLabel.textColor = UIColor.red
-        } else if (indexPath.row % 7 == 6) {
-            cell.textLabel.textColor = UIColor.blue
-        } else {
-            cell.textLabel.textColor = UIColor.gray
-        }
-        //テキスト配置
-        if indexPath.section == 0 {
-            cell.textLabel.text = weekArray[indexPath.row]
-        } else {
-            cell.textLabel.text = "あ"
-            //月によって1日の場所は異なる(後ほど説明します)
-        }
-        
-        return cell
-    }
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath) as! CalendarCell
+//        cell.textLabel.backgroundColor = UIColor.white
+//        //テキストカラー
+//        if (indexPath.row % 7 == 0) {
+//            cell.textLabel.textColor = UIColor.red
+//        } else if (indexPath.row % 7 == 6) {
+//            cell.textLabel.textColor = UIColor.blue
+//        } else {
+//            cell.textLabel.textColor = UIColor.gray
+//        }
+//        //テキスト配置
+//        if indexPath.section == 0 {
+//            cell.textLabel.text = weekArray[indexPath.row]
+//        } else {
+//            cell.textLabel.text = leaves[indexPath.row]
+//            //月によって1日の場所は異なる(後ほど説明します)
+//        }
+//
+//        return cell
+//    }
     
     //セルのサイズを設定
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfMargin: CGFloat = 8.0
-        let width: CGFloat = (collectionView.frame.size.width - cellMargin * numberOfMargin) / CGFloat(7)
-        let height: CGFloat = width * 1.0
-        return CGSize(width:width, height:height)
-        
+        let size = floor((collectionView.frame.size.width - (1*(8-1))) / 8)
+        return CGSize(width:size, height:size)
+
     }
     
     //セルの垂直方向のマージンを設定
@@ -94,6 +110,56 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
     //セルの水平方向のマージンを設定
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellMargin
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+//    }
+//
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+//        return 1
+//    }
+    
+    /*
+     Cellが選択された際に呼び出される
+     */
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("Num: \(indexPath.row)")
+        print("SectionNum:\(indexPath.section)")
+        
+    }
+    
+    /*
+     Cellに値を設定する
+     */
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell : CalendarCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath) as! CalendarCell
+        
+        switch(indexPath.section){
+        case 0:
+            cell.backgroundColor = UIColor.white
+            cell.textLabel.text = weekArray[indexPath.row]
+
+        default:
+            print("section error")
+            cell.backgroundColor = UIColor.white
+        }
+        
+        return cell
+    }
+    
+    /*
+     Sectionに値を設定する
+     */
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Section", for: indexPath)
+        
+        headerView.backgroundColor = UIColor.white
+        
+        return headerView
     }
     
     @IBAction func backToMain(_ sender: Any) {

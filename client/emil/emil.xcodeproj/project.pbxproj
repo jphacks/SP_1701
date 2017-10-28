@@ -23,6 +23,7 @@
 		7C10DD041FA2ED9900B30090 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C10DD021FA2ED9900B30090 /* LaunchScreen.storyboard */; };
 		7C10DD0F1FA2ED9900B30090 /* emilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C10DD0E1FA2ED9900B30090 /* emilTests.swift */; };
 		7C10DD1A1FA2ED9900B30090 /* emilUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C10DD191FA2ED9900B30090 /* emilUITests.swift */; };
+		7C10DD681FA5059A00B30090 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C10DD671FA5059A00B30090 /* APIManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		7C10DD151FA2ED9900B30090 /* emilUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = emilUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C10DD191FA2ED9900B30090 /* emilUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emilUITests.swift; sourceTree = "<group>"; };
 		7C10DD1B1FA2ED9900B30090 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C10DD671FA5059A00B30090 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				7C10DCF91FA2ED9900B30090 /* AppDelegate.swift */,
+				7C10DD671FA5059A00B30090 /* APIManager.swift */,
 				7C10DCFB1FA2ED9900B30090 /* ViewController.swift */,
 				7C10DCFD1FA2ED9900B30090 /* Main.storyboard */,
 				3B1FEB551FA2FAE5007E1977 /* Timetable.storyboard */,
@@ -296,6 +299,7 @@
 				3B3F1AC71FA4F1C9007A73C4 /* EditCoupon.swift in Sources */,
 				3B1FEB591FA420C7007E1977 /* TimeTable.swift in Sources */,
 				7C10DCFA1FA2ED9900B30090 /* AppDelegate.swift in Sources */,
+				7C10DD681FA5059A00B30090 /* APIManager.swift in Sources */,
 				3B1FEB5B1FA423E1007E1977 /* Coupon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

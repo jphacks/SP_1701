@@ -12,10 +12,20 @@
         <!--EditCoupon-->
         <scene sceneID="B3j-e7-FDa">
             <objects>
-                <viewController title="EditCoupon" id="CaV-do-hWh" sceneMemberID="viewController">
+                <viewController title="EditCoupon" id="CaV-do-hWh" customClass="EditCoupon" customModule="emil" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hub-bg-pfE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zjh-b4-jWG">
+                                <rect key="frame" x="24" y="32" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="戻る"/>
+                                <connections>
+                                    <action selector="moveToCoupon:" destination="CaV-do-hWh" eventType="touchUpInside" id="I9W-Zi-Crz"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="poL-aM-J7q"/>
                     </view>

@@ -60,11 +60,35 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // セルがタップされた時の処理
         print("タップされたセルのindex番号: \(indexPath.row)")
-    }
-    
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        // アクセサリボタン（セルの右にあるボタン）がタップされた時の処理
-        print("タップされたアクセサリがあるセルのindex番号: \(indexPath.row)")
+
+        let alert: UIAlertController = UIAlertController(title: "確認", message: "このクーポンを使いますか？", preferredStyle:  UIAlertControllerStyle.alert)
+        
+
+        // 使用ボタン
+        let defaultAction: UIAlertAction = UIAlertAction(title: "使用", style: UIAlertActionStyle.default, handler:{
+
+            (action: UIAlertAction!) -> Void in
+            /*
+             *
+             * To Do
+             * クーポン使用の場合の処理を書く
+             * 押したセルの情報を削除する
+             * 押したセルのマイレージの分を使用可能マイレージから引く
+             */
+            print("OK")
+        })
+        // キャンセルボタン
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.cancel, handler:{
+
+            (action: UIAlertAction!) -> Void in
+            //キャンセルだから何もしない
+            print("Cancel")
+        })
+
+        alert.addAction(cancelAction)
+        alert.addAction(defaultAction)
+
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func backToMain(_ sender: Any) {

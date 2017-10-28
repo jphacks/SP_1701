@@ -16,6 +16,23 @@ extension UIColor {
     class func lightRed() -> UIColor {
         return UIColor(red: 195.0 / 255, green: 123.0 / 255, blue: 175.0 / 255, alpha: 1.0)
     }
+    
+    class func hex ( hexStr : NSString, alpha : CGFloat) -> UIColor {
+        var alpha = alpha
+        var hexStr = hexStr
+        hexStr = hexStr.replacingOccurrences(of: "#", with: "") as NSString
+        let scanner = Scanner(string: hexStr as String)
+        var color: UInt32 = 0
+        if scanner.scanHexInt32(&color) {
+            let r = CGFloat((color & 0xFF0000) >> 16) / 255.0
+            let g = CGFloat((color & 0x00FF00) >> 8) / 255.0
+            let b = CGFloat(color & 0x0000FF) / 255.0
+            return UIColor(red:r,green:g,blue:b,alpha:alpha)
+        } else {
+            print("不正な値だよ")
+            return UIColor.white
+        }
+    }
 }
 
 class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
@@ -47,7 +64,7 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
         timetabelColelctionView.delegate = self
         timetabelColelctionView.dataSource = self
-        timetabelColelctionView.backgroundColor = UIColor.black
+//        timetabelColelctionView.backgroundColor = UIColor.black
         
     }
     
@@ -139,7 +156,16 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
         switch(indexPath.section){
         case 0:
+            
+            /*
+             * To Do
+             * index.rowの値に応じて色を変えるようにする
+             *
+             */
             cell.backgroundColor = UIColor.white
+            if (indexPath.row > 7 && indexPath.row % 8 != 0) {
+                cell.backgroundColor = UIColor.hex(hexStr: "F7C594", alpha: 1)
+            }
             cell.textLabel.text = weekArray[indexPath.row]
 
         default:

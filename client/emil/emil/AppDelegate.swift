@@ -13,7 +13,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    var coupon_data:[(gift:String,
+        smileage:Int)] = [("ハンバーグ", 200), ("焼肉", 350),
+                          ("Switch買う", 15000), ("肩もみ", 20),
+                          ("ハンバーグ", 200), ("焼肉", 350)]
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true

@@ -10,6 +10,9 @@ import UIKit
 
 class EditCoupon: UIViewController {
     
+    @IBOutlet weak var giftText: UITextField!
+    @IBOutlet weak var smileageNumber: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

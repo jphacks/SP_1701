@@ -35,9 +35,14 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var Coupon: UITableView!
     @IBOutlet weak var shadow: UIView!
     @IBOutlet weak var AddCouponBtn: UIButton!
+    @IBOutlet weak var Total: UILabel!
+    @IBOutlet weak var TotalAll: UILabel!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
+    var t = 0
+    var ta = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,7 +66,11 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         Coupon.delegate = self
         Coupon.dataSource = self
         
+        Total.text = "18594"
+        TotalAll .text = "18594"
         
+        t = Int(Total.text!)!
+        ta = Int(TotalAll.text!)!
     }
     
     override func didReceiveMemoryWarning() {
@@ -109,14 +118,14 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let defaultAction: UIAlertAction = UIAlertAction(title: "使用", style: UIAlertActionStyle.default, handler:{
 
             (action: UIAlertAction!) -> Void in
-            /*
-             *
-             * To Do
-             * クーポン使用の場合の処理を書く
-             * 押したセルの情報を削除する
-             * 押したセルのマイレージの分を使用可能マイレージから引く
-             */
             print("OK")
+            self.t = self.ta - self.appDelegate.coupon_data[indexPath.row].smileage
+            
+            self.Total.text = String(self.t)
+            self.appDelegate.coupon_data.remove(at: indexPath.row)
+            self.Coupon.reloadData()
+            
+            
         })
         // キャンセルボタン
         let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.cancel, handler:{

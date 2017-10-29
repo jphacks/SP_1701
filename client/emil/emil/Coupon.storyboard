@@ -89,6 +89,8 @@
                     <connections>
                         <outlet property="AddCouponBtn" destination="4MN-8g-9cb" id="gMI-KQ-Ifr"/>
                         <outlet property="Coupon" destination="cul-Df-7GX" id="Wqp-GM-Nl2"/>
+                        <outlet property="Total" destination="JM7-gQ-2m9" id="u60-5M-rFu"/>
+                        <outlet property="TotalAll" destination="v34-86-8zM" id="EPR-FI-Kib"/>
                         <outlet property="shadow" destination="Oxh-VS-fvA" id="kdA-h3-Fkg"/>
                     </connections>
                 </viewController>

@@ -65,7 +65,7 @@ class GetWeeklyLaughViewSet(viewsets.ViewSet):
                 results = []
                 for _ in range(7):
                     end_date = start_date + timedelta(days=1)
-                    laugh = Laugh.objects.filter(created_at__range=(start_date, end_date))
+                    laugh = Laugh.objects.filter(created_at__range=(start_date, end_date), user=user)
 
                     results.append(str(len(laugh)))
                     start_date = end_date
@@ -78,3 +78,20 @@ class GetWeeklyLaughViewSet(viewsets.ViewSet):
             else:
                 raise ValidationError(serializer.errors)
 
+
+class GetTimetableLaughViewSet(viewsets.ViewSet):
+    @staticmethod
+    def create(request):
+        if request.method == 'POST':
+            serializer = GetTimetableLaughSerializer(data=request.data)
+
+            if serializer.is_valid():
+                try:
+                    user = User.objects.get(random_id=request.data['user_id'])
+                except ObjectDoesNotExist:
+                    raise ValidationError(404)
+
+            else:
+                raise ValidationError(serializer.errors)
+        else:
+            raise ValidationError('Do not get method')

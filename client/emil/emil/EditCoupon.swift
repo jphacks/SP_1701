@@ -10,9 +10,14 @@ import UIKit
 
 class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     
-
+    
     @IBOutlet weak var giftText: UITextView!
     @IBOutlet weak var smileageNumber: UITextField!
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var gt = "" //やることの文
+    var sp = 0 //スマイレージ
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +29,7 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         
         giftText.returnKeyType = .done
         smileageNumber.returnKeyType = .done
-
+        
         
         giftText.delegate = self
         smileageNumber.delegate = self
@@ -36,14 +41,19 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     }
     
     @IBAction func moveToCoupon(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Coupon", bundle: nil)
+        let next: UIViewController = storyboard.instantiateInitialViewController()!
+        present(next, animated: true, completion: nil)
     }
     
-    /*
-     UITextFieldが編集された直後に呼ばれるデリゲートメソッド.
-     */
-    func textFieldDidBeginEditing(_ textField: UITextField){
-        print("textFieldDidBeginEditing:" + textField.text!)
+
+    //「やること」が変更された
+    func textViewDidChange(_ textView: UITextView) {
+        print("textViewDidChange : \(giftText.text!)")
+        gt = String(giftText.text)
+        
     }
     
     /*
@@ -51,7 +61,7 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
      */
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         print("textFieldShouldEndEditing:" + textField.text!)
-        
+        sp = Int(textField.text!)!
         return true
     }
     
@@ -64,10 +74,7 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         return true
     }
     
-    //テキストビューが変更された
-    func textViewDidChange(_ textView: UITextView) {
-        print("textViewDidChange : \(giftText.text)");
-    }
+    
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange,
                   replacementText text: String) -> Bool {
@@ -77,7 +84,7 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         }
         return true
     }
-
+    
     func showOK() {
         
         let alert = UIAlertController(
@@ -88,6 +95,7 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         
         self.present(alert, animated: true, completion: nil)
+        appDelegate.coupon_data.append((gift: gt, smileage: sp))
     }
     
     @IBAction func alertShow(_ sender: Any) {
@@ -99,6 +107,9 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
          */
     }
     
+    @IBAction func tapScreen(sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
     
 }
 

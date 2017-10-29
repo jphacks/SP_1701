@@ -35,11 +35,19 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var Coupon: UITableView!
     @IBOutlet weak var shadow: UIView!
     @IBOutlet weak var AddCouponBtn: UIButton!
+    @IBOutlet weak var Total: UILabel!
+    @IBOutlet weak var TotalAll: UILabel!
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+    var t = 0
+    var ta = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Coupon.register(UINib(nibName: "CustomCellTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomCellTableViewCell")
+        
         
         /* 画面上部の影部分 */
         shadow.layer.shadowColor = UIColor.black.cgColor
@@ -58,7 +66,11 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         Coupon.delegate = self
         Coupon.dataSource = self
         
+        Total.text = "18594"
+        TotalAll .text = "18594"
         
+        t = Int(Total.text!)!
+        ta = Int(TotalAll.text!)!
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,8 +86,8 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
          * ギフトを配列に変える
          */
         let cell = Coupon.dequeueReusableCell(withIdentifier: "CustomCellTableViewCell", for: indexPath) as! CustomCellTableViewCell
-        cell.gift.text = "ハンバーーーーグ"
-        cell.smileage.text = String(120)
+        cell.gift.text = appDelegate.coupon_data[indexPath.row].gift
+        cell.smileage.text = String(appDelegate.coupon_data[indexPath.row].smileage)
 
         if let path: String = Bundle.main.path(forResource: "check", ofType: "png") {
             cell.couponImg.image = UIImage(contentsOfFile: path)
@@ -87,7 +99,7 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // セルの数を設定
-        return 5
+        return appDelegate.coupon_data.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -106,14 +118,14 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let defaultAction: UIAlertAction = UIAlertAction(title: "使用", style: UIAlertActionStyle.default, handler:{
 
             (action: UIAlertAction!) -> Void in
-            /*
-             *
-             * To Do
-             * クーポン使用の場合の処理を書く
-             * 押したセルの情報を削除する
-             * 押したセルのマイレージの分を使用可能マイレージから引く
-             */
             print("OK")
+            self.t = self.ta - self.appDelegate.coupon_data[indexPath.row].smileage
+            
+            self.Total.text = String(self.t)
+            self.appDelegate.coupon_data.remove(at: indexPath.row)
+            self.Coupon.reloadData()
+            
+            
         })
         // キャンセルボタン
         let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.cancel, handler:{

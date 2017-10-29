@@ -13,7 +13,6 @@ class CustomCellTableViewCell: UITableViewCell {
     @IBOutlet weak var gift: UILabel!
     @IBOutlet weak var smileage: UILabel!
     @IBOutlet weak var couponImg: UIImageView!
-    @IBOutlet weak var invisibleBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

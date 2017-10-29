@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import Foundation
+
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var total_smile_point: UILabel!
-    
+    @IBOutlet weak var smileage: UIImageView!
+    // API接続先
+    let urlStr = "http://kentaiwami.jp/pinkie/api/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +31,13 @@ class ViewController: UIViewController {
         
         //スマイルポイントを表示
         total_smile_point.text = "\(point)"
-        //画面の幅と高さ
-        //print(view.bounds.width)
-        //print(view.bounds.height)
         
+        // バンドルした画像ファイルを読み込み
+        let image = UIImage(named: "smileage.png")
+        // Image Viewに画像を設定
+        smileage.image = image
+        
+        callAPI(name: "asd")
     }
     
     override func didReceiveMemoryWarning() {
@@ -103,6 +110,27 @@ class ViewController: UIViewController {
         view.addSubview(graphview)
     }
     
+    public func callAPI(name: String){
+        
+        let APIUrl = urlStr + "get_weekly_laugh"
+        if let url = URL(string: APIUrl) {
+            let req = NSMutableURLRequest(url: url)
+            req.httpMethod = "POST"
+            req.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: req as URLRequest, completionHandler: { (data, resp, err) in
+                // 受け取ったdataをJSONパース、エラーならcatchへジャンプ
+                do {
+                    var json = try JSONSerialization.jsonObject(with: data!, options:[]) as? Dictionary<String, String>
+                    print(json)
+                    
+                } catch {
+                    print ("json error")
+                    return
+                }
+            })
+            task.resume()
+        }
+    }
     
 }
 

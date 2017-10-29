@@ -1,6 +1,6 @@
 # 笑顔をみまもるアプリ「エミル」
 
-[![エミル](https://youtu.be/mUH5lNO9mks)](https://youtu.be/mUH5lNO9mks)
+[![](http://img.youtube.com/vi/mUH5lNO9mks/0.jpg)](https://www.youtube.com/watch?v=mUH5lNO9mks)
 
 ## 製品概要
 ### Smile Tech

@@ -8,14 +8,26 @@
 
 import UIKit
 
-class EditCoupon: UIViewController {
+class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     
-    @IBOutlet weak var giftText: UITextField!
+
+    @IBOutlet weak var giftText: UITextView!
     @IBOutlet weak var smileageNumber: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        giftText.layer.borderColor = UIColor.gray.cgColor
+        giftText.layer.borderWidth = 1.0
+        smileageNumber.layer.borderColor = UIColor.gray.cgColor
+        smileageNumber.layer.borderWidth = 1.0
+        
+        giftText.returnKeyType = .done
+        smileageNumber.returnKeyType = .done
+
+        
+        giftText.delegate = self
+        smileageNumber.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -27,5 +39,43 @@ class EditCoupon: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    /*
+     UITextFieldが編集された直後に呼ばれるデリゲートメソッド.
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField){
+        print("textFieldDidBeginEditing:" + textField.text!)
+    }
+    
+    /*
+     UITextFieldが編集終了する直前に呼ばれるデリゲートメソッド.
+     */
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("textFieldShouldEndEditing:" + textField.text!)
+        
+        return true
+    }
+    
+    /*
+     改行ボタンが押された際に呼ばれるデリゲートメソッド.
+     */
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
+    }
+    
+    //テキストビューが変更された
+    func textViewDidChange(_ textView: UITextView) {
+        print("textViewDidChange : \(giftText.text)");
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange,
+                  replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder() //キーボードを閉じる
+            return false
+        }
+        return true
+    }
 
 }

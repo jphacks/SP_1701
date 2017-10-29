@@ -38,7 +38,6 @@ extension UIColor {
 class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     @IBOutlet weak var total_smile: UILabel!
-    @IBOutlet weak var oneday_smile: UILabel!
     
     @IBOutlet weak var timetabelColelctionView: UICollectionView!
     
@@ -52,6 +51,7 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
                      "5", "", "", "", "", "", "", "",
                      "6", "", "", "", "", "", "", "",
                      "放", "", "", "", "", "", "", ""]
+    var titles: [String] = [ "F7C594", "E4740E", "FFFFFF"]
     
     let cellMargin: CGFloat = 0.0 //マージン
     
@@ -61,7 +61,7 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        total_smile.text = "18594"
         timetabelColelctionView.delegate = self
         timetabelColelctionView.dataSource = self
 //        timetabelColelctionView.backgroundColor = UIColor.black
@@ -160,11 +160,24 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
             /*
              * To Do
              * index.rowの値に応じて色を変えるようにする
-             *
+             * 現状これはまずい
              */
             cell.backgroundColor = UIColor.white
             if (indexPath.row > 7 && indexPath.row % 8 != 0) {
                 cell.backgroundColor = UIColor.hex(hexStr: "F7C594", alpha: 1)
+            }
+            if(indexPath.row % 7 == 0 && indexPath.row & 8 != 7){
+                cell.backgroundColor = UIColor.hex(hexStr: "FFFFFF", alpha: 1)
+                
+            }
+            if(indexPath.row == 17 || indexPath.row == 25 || indexPath.row == 53 || indexPath.row == 71 ||
+                indexPath.row == 41 || indexPath.row == 37 || indexPath.row == 34 || indexPath.row == 67 ) {
+                cell.backgroundColor = UIColor.hex(hexStr: "E4740E", alpha: 1)
+            }
+            if(indexPath.row == 18 || indexPath.row == 28 || indexPath.row == 75 || indexPath.row == 79 ||
+                indexPath.row == 44 || indexPath.row == 68 || indexPath.row == 13 || indexPath.row == 21 ||
+                indexPath.row == 50 || indexPath.row == 57 || indexPath.row == 17 || indexPath.row == 59) {
+                cell.backgroundColor = UIColor.hex(hexStr: "EE9540", alpha: 1)
             }
             cell.textLabel.text = weekArray[indexPath.row]
 

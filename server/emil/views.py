@@ -95,3 +95,24 @@ class GetTimetableLaughViewSet(viewsets.ViewSet):
                 raise ValidationError(serializer.errors)
         else:
             raise ValidationError('Do not get method')
+
+
+class SaveLaughViewSet(viewsets.ViewSet):
+    @staticmethod
+    def create(request):
+        if request.method == 'POST':
+            serializer = SaveLaughSerializer(data=request.data)
+
+            if serializer.is_valid():
+                try:
+                    user = User.objects.get(random_id=request.data['user_id'])
+                except ObjectDoesNotExist:
+                    raise ValidationError(404)
+
+                Laugh.objects.create(user=user, created_at=datetime.now())
+
+                return Response('OK')
+            else:
+                raise ValidationError(serializer.errors)
+        else:
+            raise ValidationError('Do not get method')

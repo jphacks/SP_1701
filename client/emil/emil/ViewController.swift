@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var total_smile_point: UILabel!
     @IBOutlet weak var smileage: UIImageView!
+    @IBOutlet weak var week: UILabel!
     // API接続先
     let urlStr = "http://kentaiwami.jp/pinkie/api/"
     
@@ -27,10 +28,12 @@ class ViewController: UIViewController {
         view.addSubview(graphview)
         
         //スマイルポイント
-        let point=2400
+        let point=18594
         
         //スマイルポイントを表示
         total_smile_point.text = "\(point)"
+        
+        week.text = "10月22日~28日までのスマイレージ"
         
         // バンドルした画像ファイルを読み込み
         let image = UIImage(named: "smileage.png")
@@ -100,6 +103,8 @@ class ViewController: UIViewController {
         let graphview = Graph2(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
+        
+        week.text = "10月15日~21日までのスマイレージ"
     }
     
     //押すごとに最新のグラフを表示
@@ -108,6 +113,8 @@ class ViewController: UIViewController {
         let graphview = Graph(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
+        
+        week.text = "10月22日~28日までのスマイレージ"
     }
     
     public func callAPI(name: String){

@@ -1,6 +1,6 @@
 # 笑顔をみまもるアプリ「エミル」
 
-[![Product Name](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](https://youtu.be/mUH5lNO9mks)
+[![エミル](https://youtu.be/mUH5lNO9mks)](https://youtu.be/mUH5lNO9mks)
 
 ## 製品概要
 ### Smile Tech

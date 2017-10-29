@@ -156,5 +156,5 @@ venv.bak/
 .mypy_cache/
 
 server/settings.py
-
 .idea/
+db.sqlite3

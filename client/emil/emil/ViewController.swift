@@ -10,15 +10,23 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var total_smile_point: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         //viewを定義
-        let graphview = Graph(frame : CGRect(x: 0,y: 200,width: view.bounds.width,height: 300))
+        let graphview = Graph(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
         
+        //スマイルポイント
+        let point=2400
+        
+        //スマイルポイントを表示
+        total_smile_point.text = "\(point)"
         //画面の幅と高さ
         //print(view.bounds.width)
         //print(view.bounds.height)
@@ -50,8 +58,8 @@ class ViewController: UIViewController {
             let count = [7, 8, 2, 5, 6, 4, 9]//笑った回数
             
             for i in 0..<7 {
-                let point = count[i]*20 //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*50, y: 300-point, width: 40, height: 100+point), cornerRadius: 0)
+                let point = count[i]*40 //笑った回数分のポイント
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point, width: 30, height: point), cornerRadius: 0)
                 
                 UIColor.orange.setFill() // 色をセット
                 path.fill()
@@ -68,8 +76,8 @@ class ViewController: UIViewController {
             let count = [1, 3, 5, 7, 6, 4, 5]//笑った回数
             
             for i in 0..<7 {
-                let point = count[i]*20 //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*50, y: 300-point, width: 40, height: 100+point), cornerRadius: 0)
+                let point = count[i]*40 //笑った回数分のポイント
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point, width: 30, height: point), cornerRadius: 0)
                 
                 UIColor.orange.setFill() // 色をセット
                 path.fill()
@@ -82,7 +90,7 @@ class ViewController: UIViewController {
     //1つ前の過去のグラフを表示
     @IBAction func beforeGraph(_ sender: Any) {
         //viewを定義
-        let graphview = Graph2(frame : CGRect(x: 0,y: 200,width: view.bounds.width,height: 300))
+        let graphview = Graph2(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
     }
@@ -90,7 +98,7 @@ class ViewController: UIViewController {
     //押すごとに最新のグラフを表示
     @IBAction func advancegraph(_ sender: Any) {
         //viewを定義
-        let graphview = Graph(frame : CGRect(x: 0,y: 200,width: view.bounds.width,height: 300))
+        let graphview = Graph(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
     }

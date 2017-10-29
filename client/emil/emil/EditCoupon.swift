@@ -78,4 +78,27 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         return true
     }
 
+    func showOK() {
+        
+        let alert = UIAlertController(
+            title: "完了",
+            message: "登録しました",
+            preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func alertShow(_ sender: Any) {
+        showOK()
+        /*
+         * To Do
+         * 配列にデータを追加する
+         *
+         */
+    }
+    
+    
 }
+

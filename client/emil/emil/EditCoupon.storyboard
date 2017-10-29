@@ -51,6 +51,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="作成"/>
+                                <connections>
+                                    <action selector="alertShow:" destination="CaV-do-hWh" eventType="touchUpInside" id="dna-hT-B4H"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OKP-oG-3PV">
                                 <rect key="frame" x="38" y="221" width="290" height="42"/>

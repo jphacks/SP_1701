@@ -51,7 +51,7 @@ class ViewController: UIViewController {
             
             for i in 0..<7 {
                 let point = count[i]*20 //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 40+i*50, y: 300-point, width: 40, height: 100+point), cornerRadius: 0)
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*50, y: 300-point, width: 40, height: 100+point), cornerRadius: 0)
                 
                 UIColor.orange.setFill() // 色をセット
                 path.fill()
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
             
             for i in 0..<7 {
                 let point = count[i]*20 //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 40+i*50, y: 300-point, width: 40, height: 100+point), cornerRadius: 0)
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*50, y: 300-point, width: 40, height: 100+point), cornerRadius: 0)
                 
                 UIColor.orange.setFill() // 色をセット
                 path.fill()
@@ -88,12 +88,13 @@ class ViewController: UIViewController {
     }
     
     //押すごとに最新のグラフを表示
-    @IBAction func advanceGraph(_ sender: Any) {
+    @IBAction func advancegraph(_ sender: Any) {
         //viewを定義
         let graphview = Graph(frame : CGRect(x: 0,y: 200,width: view.bounds.width,height: 300))
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
     }
+    
     
 }
 

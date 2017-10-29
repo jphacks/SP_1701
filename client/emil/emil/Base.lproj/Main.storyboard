@@ -36,16 +36,22 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Aa-fD-Xwr">
-                                <rect key="frame" x="16" y="487" width="71" height="41"/>
+                                <rect key="frame" x="16" y="524" width="71" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="先週"/>
+                                <connections>
+                                    <action selector="beforeGraph:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fEq-PT-O9H"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cqd-LO-4sW">
-                                <rect key="frame" x="288" y="487" width="71" height="41"/>
+                                <rect key="frame" x="288" y="524" width="71" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="次週"/>
+                                <connections>
+                                    <action selector="advancegraph:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w93-Yk-NR2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -57,6 +57,8 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         Coupon.delegate = self
         Coupon.dataSource = self
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,7 +76,12 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = Coupon.dequeueReusableCell(withIdentifier: "CustomCellTableViewCell", for: indexPath) as! CustomCellTableViewCell
         cell.gift.text = "ハンバーーーーグ"
         cell.smileage.text = String(120)
-        
+
+        if let path: String = Bundle.main.path(forResource: "check", ofType: "png") {
+            cell.couponImg.image = UIImage(contentsOfFile: path)
+        }else {
+            print("指定されたファイルが見つかりません")
+        }
         return cell
     }
     

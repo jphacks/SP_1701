@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 import string
 import random
@@ -21,7 +22,7 @@ class User(models.Model):
 
 class Laugh(models.Model):
     user = models.ForeignKey(User)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return self.user.random_id

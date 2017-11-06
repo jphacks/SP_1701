@@ -120,6 +120,7 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
             (action: UIAlertAction!) -> Void in
             print("OK")
             self.t = self.ta - self.appDelegate.coupon_data[indexPath.row].smileage
+            self.ta = self.t
             
             self.Total.text = String(self.t)
             self.appDelegate.coupon_data.remove(at: indexPath.row)

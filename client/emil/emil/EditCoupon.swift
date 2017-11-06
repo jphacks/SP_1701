@@ -19,6 +19,8 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     var gt = "" //やることの文
     var sp = 0 //スマイレージ
     
+    var postDismissionAction: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,11 +43,13 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     }
     
     @IBAction func moveToCoupon(_ sender: Any) {
-        //self.dismiss(animated: true, completion: nil)
-        
-        let storyboard: UIStoryboard = UIStoryboard(name: "Coupon", bundle: nil)
-        let next: UIViewController = storyboard.instantiateInitialViewController()!
-        present(next, animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            self.postDismissionAction?()
+        })
+//        let storyboard: UIStoryboard = UIStoryboard(name: "Coupon", bundle: nil)
+//        let next: UIViewController = storyboard.instantiateInitialViewController()!
+//        present(next, animated: true, completion: nil)
     }
     
 

@@ -142,6 +142,21 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         present(alert, animated: true, completion: nil)
     }
     
+    func postSearchViewControllerDismissionAction() {
+        
+        // 各セルの内容の要素を作る処理(今回は、データベースから値を読み込み配列に格納)
+        //self.setUp()
+        // 再描画
+        self.Coupon.reloadData()
+        
+    }
+    
+//    func setUp() {
+//
+//        // データベースから値を読み込み配列に格納
+//        // 処理省略
+//
+//    }
     /* 戻るボタン */
     @IBAction func backToMain(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -149,8 +164,12 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBAction func moveToEdit(_ sender: Any) {
         let storyboard: UIStoryboard = UIStoryboard(name: "EditCoupon", bundle: nil)
-        let next: UIViewController = storyboard.instantiateInitialViewController()!
+        let next = storyboard.instantiateInitialViewController()! as! EditCoupon
+        next.postDismissionAction = { self.postSearchViewControllerDismissionAction()}
         present(next, animated: true, completion: nil)
+//        let addSearchViewController = self.storyboard?.instantiateViewController(withIdentifier: "EditCoupon") as! EditCoupon
+        
+        //self.present(addSearchViewController, animated: true, completion: nil)
     }
     
 }

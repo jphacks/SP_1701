@@ -12,7 +12,7 @@
         <!--EditCoupon-->
         <scene sceneID="B3j-e7-FDa">
             <objects>
-                <viewController title="EditCoupon" id="CaV-do-hWh" customClass="EditCoupon" customModule="emil" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditCoupon" title="EditCoupon" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CaV-do-hWh" customClass="EditCoupon" customModule="emil" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hub-bg-pfE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

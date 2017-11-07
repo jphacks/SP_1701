@@ -93,6 +93,12 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
         serializer = LaughsSerializer(data=kwargs)
 
         if serializer.is_valid():
+            # 指定された日付が日曜日かをチェック
+            weekday = datetime.strptime(kwargs.get('year') + '/' + kwargs.get('month') + '/' + kwargs.get('day'),
+                                        '%Y/%m/%d').weekday()
+            if weekday != 6:
+                raise ValidationError('日曜日の日付を指定する必要があります')
+
             try:
                 user = self.get_queryset()
             except ObjectDoesNotExist:

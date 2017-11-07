@@ -1,5 +1,4 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import JsonResponse
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
@@ -73,9 +72,7 @@ class LaughsViewSet(viewsets.ModelViewSet):
                 results.append(len(laugh))
                 start_date = end_date
 
-            return Response({
-                'weekly': results
-            })
+            return Response({'weekly': results})
 
         else:
             raise ValidationError(serializer.errors)
@@ -93,9 +90,10 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
         serializer = LaughsSerializer(data=kwargs)
 
         if serializer.is_valid():
+
+            weekday = datetime.strptime(kwargs.get('year') + '/' + kwargs.get('month') + '/' + kwargs.get('day'), '%Y/%m/%d').weekday()
+
             # 指定された日付が日曜日かをチェック
-            weekday = datetime.strptime(kwargs.get('year') + '/' + kwargs.get('month') + '/' + kwargs.get('day'),
-                                        '%Y/%m/%d').weekday()
             if weekday != 6:
                 raise ValidationError('日曜日の日付を指定する必要があります')
 
@@ -104,16 +102,56 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
             except ObjectDoesNotExist:
                 raise ValidationError(404)
 
-            # TODO
-            return Response({
-                0: [1, 2, 3],
-                1: [1, 2, 3],
-                2: [1, 2, 3],
-                3: [1, 2, 3],
-                4: [1, 2, 3],
-                5: [1, 2, 3],
-                6: [1, 2, 3]
-            })
+            start_y = int(kwargs.get('year'))
+            start_m = int(kwargs.get('month'))
+            start_d = int(kwargs.get('day'))
+
+            # 開始日と終了日のdateを生成
+            start = datetime.date(datetime(start_y, start_m, start_d))
+            end = start + timedelta(days=7)
+
+            # まず、ユーザと開始・終了日で絞り込む
+            laughs = Laugh.objects.filter(user=user, created_at__range=(start, end))
+
+            # 時間割(http://www.city.funabashi.lg.jp/gakkou/0001/miyama-e/0003/p014319.html)
+            timetable = [
+                {'s': {'h': 8, 'm': 45}, 'e': {'h': 9, 'm': 30}},
+                {'s': {'h': 9, 'm': 35}, 'e': {'h': 10, 'm': 20}},
+                {'s': {'h': 10, 'm': 20}, 'e': {'h': 10, 'm': 40}},
+                {'s': {'h': 10, 'm': 45}, 'e': {'h': 11, 'm': 30}},
+                {'s': {'h': 11, 'm': 35}, 'e': {'h': 12, 'm': 20}},
+                {'s': {'h': 12, 'm': 20}, 'e': {'h': 13, 'm': 50}},
+                {'s': {'h': 13, 'm': 50}, 'e': {'h': 14, 'm': 35}},
+                {'s': {'h': 14, 'm': 40}, 'e': {'h': 15, 'm': 40}},
+                {'s': {'h': 15, 'm': 40}, 'e': {'h': 23, 'm': 59}},
+            ]
+
+            results = []
+
+            # 時間割ごとのループ
+            for one_class in timetable:
+
+                # 1コマ分の開始・終了時間を生成
+                start = datetime(start_y, start_m, start_d, one_class['s']['h'], one_class['s']['m'], 0)
+                end = datetime(start_y, start_m, start_d, one_class['e']['h'], one_class['e']['m'], 0)
+
+                day_laughs_by_one_class = []
+
+                # 日にちのループ
+                for _ in range(7):
+                    # print(start, end, laughs.filter(created_at__range=(start, end)).count())
+
+                    # 1コマに笑った回数を記録
+                    day_laughs_by_one_class.append(laughs.filter(created_at__range=(start, end)).count())
+
+                    start = start + timedelta(days=1)
+                    end = end + timedelta(days=1)
+
+                # 1週間分、時間別の笑った回数を記録
+                results.append(day_laughs_by_one_class)
+
+            # TODO やまたくと相談して返し方を検討
+            return Response(list(map(list, zip(*results))))
 
         else:
             raise ValidationError(serializer.errors)

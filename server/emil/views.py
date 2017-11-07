@@ -20,7 +20,7 @@ class UsersViewSet(viewsets.ModelViewSet):
             })
 
     def get_queryset(self):
-        return User.objects.get(id=self.kwargs.get('id'))
+        return User.objects.get(id=self.kwargs.get('user_id'))
 
 
 # class PostCafViewSet(viewsets.ViewSet):
@@ -43,43 +43,45 @@ class UsersViewSet(viewsets.ModelViewSet):
 #             return Response('Not Allow GET method')
 
 
-class LaughsViewSet(viewsets.ViewSet):
+class LaughsViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
     serializer_class = LaughsSerializer
 
-    @staticmethod
-    def create(request):
-        if request.method == 'POST':
-            serializer = LaughsSerializer(data=request.data)
+    def list(self, request, **kwargs):
+        serializer = LaughsSerializer(data=kwargs)
 
-            if serializer.is_valid():
-                try:
-                    user = User.objects.get(random_id=request.data['user_id'])
-                except ObjectDoesNotExist:
-                    raise ValidationError(404)
+        if serializer.is_valid():
+            try:
+                user = self.get_queryset()
+            except ObjectDoesNotExist:
+                raise ValidationError(404)
 
-                user_total_smileage = user.available_smileage
+            user_total_smileage = user.available_smileage
 
-                start_y = int(request.data['start_year'])
-                start_m = int(request.data['start_month'])
-                start_d = int(request.data['start_day'])
+            start_y = int(kwargs.get('start_year'))
+            start_m = int(kwargs.get('start_month'))
+            start_d = int(kwargs.get('start_day'))
 
-                start_date = datetime.date(datetime(start_y, start_m, start_d))
+            start_date = datetime.date(datetime(start_y, start_m, start_d))
 
-                results = []
-                for _ in range(7):
-                    end_date = start_date + timedelta(days=1)
-                    laugh = Laugh.objects.filter(created_at__range=(start_date, end_date), user=user)
+            results = []
+            for _ in range(7):
+                end_date = start_date + timedelta(days=1)
+                laugh = Laugh.objects.filter(created_at__range=(start_date, end_date), user=user)
 
-                    results.append(str(len(laugh)))
-                    start_date = end_date
+                results.append(str(len(laugh)))
+                start_date = end_date
 
-                return Response({
-                    'total_smileage': str(user_total_smileage),
-                    'weekly': results
-                })
+            return Response({
+                'total_smileage': str(user_total_smileage),
+                'weekly': results
+            })
 
-            else:
-                raise ValidationError(serializer.errors)
+        else:
+            raise ValidationError(serializer.errors)
+
+    def get_queryset(self):
+        return User.objects.get(id=self.kwargs.get('user_id'))
 
 
 class GetTimetableLaughViewSet(viewsets.ViewSet):

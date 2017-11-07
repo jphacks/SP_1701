@@ -12,7 +12,10 @@ class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
     def list(self, request, **kwargs):
-        user = self.get_queryset()
+        try:
+            user = self.get_queryset()
+        except ObjectDoesNotExist:
+                raise ValidationError(404)
 
         return Response({
             'available': user.available_smileage,
@@ -81,22 +84,36 @@ class LaughsViewSet(viewsets.ModelViewSet):
         return User.objects.get(id=self.kwargs.get('user_id'))
 
 
-class GetTimetableLaughViewSet(viewsets.ViewSet):
-    @staticmethod
-    def create(request):
-        if request.method == 'POST':
-            serializer = GetTimetableLaughSerializer(data=request.data)
+class LaughsDetailViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
+    serializer_class = LaughsSerializer
 
-            if serializer.is_valid():
-                try:
-                    user = User.objects.get(random_id=request.data['user_id'])
-                except ObjectDoesNotExist:
-                    raise ValidationError(404)
+    def list(self, request, **kwargs):
 
-            else:
-                raise ValidationError(serializer.errors)
+        serializer = LaughsSerializer(data=kwargs)
+
+        if serializer.is_valid():
+            try:
+                user = self.get_queryset()
+            except ObjectDoesNotExist:
+                raise ValidationError(404)
+
+            # TODO
+            return Response({
+                0: [1, 2, 3],
+                1: [1, 2, 3],
+                2: [1, 2, 3],
+                3: [1, 2, 3],
+                4: [1, 2, 3],
+                5: [1, 2, 3],
+                6: [1, 2, 3]
+            })
+
         else:
-            raise ValidationError('Do not get method')
+            raise ValidationError(serializer.errors)
+
+    def get_queryset(self):
+        return User.objects.get(id=self.kwargs.get('user_id'))
 
 
 class SaveLaughViewSet(viewsets.ViewSet):

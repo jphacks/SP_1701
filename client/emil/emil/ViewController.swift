@@ -39,8 +39,6 @@ class ViewController: UIViewController {
         let image = UIImage(named: "smileage.png")
         // Image Viewに画像を設定
         smileage.image = image
-        
-        callAPI(name: "asd")
     }
     
     override func didReceiveMemoryWarning() {
@@ -117,6 +115,7 @@ class ViewController: UIViewController {
         week.text = "10月22日~28日までのスマイレージ"
     }
     
+    /*
     public func callAPI(name: String){
         
         let APIUrl = urlStr + "get_weekly_laugh"
@@ -138,6 +137,7 @@ class ViewController: UIViewController {
             task.resume()
         }
     }
+ */
     
 }
 

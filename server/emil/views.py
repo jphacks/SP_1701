@@ -73,7 +73,6 @@ class LaughsViewSet(viewsets.ModelViewSet):
                 start_date = end_date
 
             return Response({
-                'total_smileage': str(user_total_smileage),
                 'weekly': results
             })
 

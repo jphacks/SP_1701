@@ -44,12 +44,12 @@ class UsersViewSet(viewsets.ModelViewSet):
 
 
 class LaughsViewSet(viewsets.ViewSet):
-    serializer_class = GetWeeklyLaughSerializer
+    serializer_class = LaughsSerializer
 
     @staticmethod
     def create(request):
         if request.method == 'POST':
-            serializer = GetWeeklyLaughSerializer(data=request.data)
+            serializer = LaughsSerializer(data=request.data)
 
             if serializer.is_valid():
                 try:

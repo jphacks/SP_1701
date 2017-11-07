@@ -7,18 +7,21 @@ from datetime import timedelta
 from .serializer import *
 
 
-class UserViewSet(viewsets.ViewSet):
-    # queryset = User.objects.all()
-    # serializer_class = UserSerializer
+class UserViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
+    serializer_class = UserSerializer
 
-    @staticmethod
-    def list(request):
+    def list(self, request, **kwargs):
+        user = self.get_queryset()
+
         return Response({
-            "random_id": "KQsRm2J6sj",
-            "available_smileage": "0",
-            "used_smileage": "0",
-            "is_active": "true"
+            'id': user.random_id,
+            'available': user.available_smileage,
+            'used': user.used_smileage
             })
+
+    def get_queryset(self):
+        return User.objects.get(id=self.kwargs.get('id'))
 
 
 class PostCafViewSet(viewsets.ViewSet):

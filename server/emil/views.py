@@ -56,11 +56,9 @@ class LaughsViewSet(viewsets.ModelViewSet):
             except ObjectDoesNotExist:
                 raise ValidationError(404)
 
-            user_total_smileage = user.available_smileage
-
-            start_y = int(kwargs.get('start_year'))
-            start_m = int(kwargs.get('start_month'))
-            start_d = int(kwargs.get('start_day'))
+            start_y = int(kwargs.get('year'))
+            start_m = int(kwargs.get('month'))
+            start_d = int(kwargs.get('day'))
 
             start_date = datetime.date(datetime(start_y, start_m, start_d))
 
@@ -69,7 +67,7 @@ class LaughsViewSet(viewsets.ModelViewSet):
                 end_date = start_date + timedelta(days=1)
                 laugh = Laugh.objects.filter(created_at__range=(start_date, end_date), user=user)
 
-                results.append(str(len(laugh)))
+                results.append(len(laugh))
                 start_date = end_date
 
             return Response({

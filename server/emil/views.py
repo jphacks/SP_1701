@@ -1,13 +1,12 @@
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
-import json
 from rest_framework.response import Response
 from datetime import timedelta
 from .serializer import *
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UsersViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
     serializer_class = UserSerializer
 
@@ -24,27 +23,27 @@ class UserViewSet(viewsets.ModelViewSet):
         return User.objects.get(id=self.kwargs.get('id'))
 
 
-class PostCafViewSet(viewsets.ViewSet):
+# class PostCafViewSet(viewsets.ViewSet):
+#
+#     @staticmethod
+#     def create(request):
+#         if request.method == 'POST':
+#             serializer = PostCafSerializer(data=request.data)
+#
+#             if serializer.is_valid():
+#                 serializer = SoundSerializer(data=json.loads(request.data['sound']))
+#
+#                 if serializer.is_valid():
+#                     return Response({'result': 'OK'})
+#                 else:
+#                     return Response(serializer.errors)
+#             else:
+#                 return Response(serializer.errors)
+#         else:
+#             return Response('Not Allow GET method')
 
-    @staticmethod
-    def create(request):
-        if request.method == 'POST':
-            serializer = PostCafSerializer(data=request.data)
 
-            if serializer.is_valid():
-                serializer = SoundSerializer(data=json.loads(request.data['sound']))
-
-                if serializer.is_valid():
-                    return Response({'result': 'OK'})
-                else:
-                    return Response(serializer.errors)
-            else:
-                return Response(serializer.errors)
-        else:
-            return Response('Not Allow GET method')
-
-
-class GetWeeklyLaughViewSet(viewsets.ViewSet):
+class LaughsViewSet(viewsets.ViewSet):
     serializer_class = GetWeeklyLaughSerializer
 
     @staticmethod

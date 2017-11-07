@@ -1,4 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
@@ -14,7 +15,6 @@ class UsersViewSet(viewsets.ModelViewSet):
         user = self.get_queryset()
 
         return Response({
-            'id': user.random_id,
             'available': user.available_smileage,
             'used': user.used_smileage
             })

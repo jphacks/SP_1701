@@ -114,30 +114,5 @@ class ViewController: UIViewController {
         
         week.text = "10月22日~28日までのスマイレージ"
     }
-    
-    /*
-    public func callAPI(name: String){
-        
-        let APIUrl = urlStr + "get_weekly_laugh"
-        if let url = URL(string: APIUrl) {
-            let req = NSMutableURLRequest(url: url)
-            req.httpMethod = "POST"
-            req.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            let task = URLSession.shared.dataTask(with: req as URLRequest, completionHandler: { (data, resp, err) in
-                // 受け取ったdataをJSONパース、エラーならcatchへジャンプ
-                do {
-                    var json = try JSONSerialization.jsonObject(with: data!, options:[]) as? Dictionary<String, String>
-                    print(json)
-                    
-                } catch {
-                    print ("json error")
-                    return
-                }
-            })
-            task.resume()
-        }
-    }
- */
-    
 }
 

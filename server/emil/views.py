@@ -42,6 +42,7 @@ class PostCafViewSet(viewsets.ViewSet):
 
 
 class GetWeeklyLaughViewSet(viewsets.ViewSet):
+    serializer_class = GetWeeklyLaughSerializer
 
     @staticmethod
     def create(request):

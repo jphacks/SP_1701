@@ -8,19 +8,29 @@
 
 import UIKit
 import Foundation
-
+import SwiftyJSON
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var total_smile_point: UILabel!
     @IBOutlet weak var smileage: UIImageView!
     @IBOutlet weak var week: UILabel!
-    // API接続先
-    let urlStr = "http://kentaiwami.jp/pinkie/api/"
+    
+    //var json : [String: [Int]] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        /*
+         * JSONデータを取得してくる
+         * key：weekly
+         * json["weekly"][数値] という風にすることで、weeklyのn番目の値を取得できる
+         */
+//        let json = callAPI(name: "laughs", params:["1","2017","10","22"])
+//        print(json)
+//        print(json["weekly"][0])
         
         //viewを定義
         let graphview = Graph(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
@@ -63,11 +73,13 @@ class ViewController: UIViewController {
     class Graph: UIView {
         override func draw(_ rect: CGRect) {
             
-            let count = [7, 8, 2, 5, 6, 4, 9]//笑った回数
+            //let count = [7, 8, 2, 5, 6, 4, 9]//笑った回数
+            let json = callAPI(name: "laughs", params:["1","2017","10","22"])
+            let each_day_points = json["weekly"]
             
             for i in 0..<7 {
-                let point = count[i]*40 //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point, width: 30, height: point), cornerRadius: 0)
+                let point = each_day_points[i].intValue //笑った回数分のポイント
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 800-point, width: 30, height: point), cornerRadius: 0)
                 
                 UIColor.orange.setFill() // 色をセット
                 path.fill()
@@ -81,11 +93,12 @@ class ViewController: UIViewController {
     class Graph2: UIView {
         override func draw(_ rect: CGRect) {
             
-            let count = [1, 3, 5, 7, 6, 4, 5]//笑った回数
+            let json = callAPI(name: "laughs", params:["1","2017","10","15"])
+            let each_day_points = json["weekly"]
             
             for i in 0..<7 {
-                let point = count[i]*40 //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point, width: 30, height: point), cornerRadius: 0)
+                let point = each_day_points[i].intValue //笑った回数分のポイント
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 800-point, width: 30, height: point), cornerRadius: 0)
                 
                 UIColor.orange.setFill() // 色をセット
                 path.fill()

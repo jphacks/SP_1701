@@ -79,18 +79,19 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // セルを作る
-        /*
-         * To Do
-         * 画像を乗っける
-         * ギフトを配列に変える
-         */
+        /* セルの作成 */
         let cell = Coupon.dequeueReusableCell(withIdentifier: "CustomCellTableViewCell", for: indexPath) as! CustomCellTableViewCell
         cell.gift.text = appDelegate.coupon_data[indexPath.row].gift
         cell.smileage.text = String(appDelegate.coupon_data[indexPath.row].smileage)
 
         if let path: String = Bundle.main.path(forResource: "check", ofType: "png") {
             cell.couponImg.image = UIImage(contentsOfFile: path)
+        }else {
+            print("指定されたファイルが見つかりません")
+        }
+        
+        if let path: String = Bundle.main.path(forResource: "smileage", ofType: "png") {
+            cell.logo.image = UIImage(contentsOfFile: path)
         }else {
             print("指定されたファイルが見つかりません")
         }

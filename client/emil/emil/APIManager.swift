@@ -7,26 +7,44 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 // API接続先
-let urlStr = "http://kentaiwami.jp/pinkie/api/"
+let urlStr = "https://kentaiwami.jp/emil/api/"
 
-public func callAPI(name: String){
+public func callAPI(name: String, params: [String]) -> JSON{
+
+    var json: JSON?
+    var APIUrl = urlStr + name + "/"
+    for param in params{
+        APIUrl = APIUrl + param + "/"
+    }
+    print("API: " + APIUrl)
     
-    let APIUrl = urlStr + name
+    //サーバーからの受信を待ちたいためNSCondition()を用いて同期通信のように動かす
+    let condition = NSCondition()
+    
     if let url = URL(string: APIUrl) {
         let req = NSMutableURLRequest(url: url)
-        req.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: req as URLRequest, completionHandler: { (data, resp, err) in
-            // 受け取ったdataをJSONパース、エラーならcatchへジャンプ
-            do {
-                var json = try JSONSerialization.jsonObject(with: data!, options:[]) as? [Dictionary<String, String>]
-            
-            } catch {
-                print ("json error")
+            condition.lock()
+            if err != nil {
+                print(err!)
                 return
             }
+            json = JSON(data: data!)
+            condition.signal()
+            condition.unlock()
         })
+        condition.lock()
         task.resume()
+        condition.wait()
+        condition.unlock()
+    }
+    
+    if json != nil{
+        return json!
+    }else{
+        return JSON.null
     }
 }

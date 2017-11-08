@@ -19,6 +19,8 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     var gt = "" //やることの文
     var sp = 0 //スマイレージ
     
+    var postDismissionAction: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,18 +39,15 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func moveToCoupon(_ sender: Any) {
-        //self.dismiss(animated: true, completion: nil)
-        
-        let storyboard: UIStoryboard = UIStoryboard(name: "Coupon", bundle: nil)
-        let next: UIViewController = storyboard.instantiateInitialViewController()!
-        present(next, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            self.postDismissionAction?()
+        })
     }
     
-
+    
     //「やること」が変更された
     func textViewDidChange(_ textView: UITextView) {
         print("textViewDidChange : \(giftText.text!)")
@@ -85,6 +84,11 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         return true
     }
     
+    
+    /*
+     * アラートのOKを押した時の動作
+     * クーポンの配列に作成した新しいクーポンデータを追加
+     */
     func showOK() {
         
         let alert = UIAlertController(
@@ -98,15 +102,17 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         appDelegate.coupon_data.append((gift: gt, smileage: sp))
     }
     
+    /*
+     アラート表示
+     */
     @IBAction func alertShow(_ sender: Any) {
         showOK()
-        /*
-         * To Do
-         * 配列にデータを追加する
-         *
-         */
+        
     }
     
+    /*
+     キーボードが出ている時に別の部分をタップすると編集が終える
+     */
     @IBAction func tapScreen(sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }

@@ -9,53 +9,6 @@
 import UIKit
 import SwiftyJSON
 
-extension UIColor {
-    class func lightBlue() -> UIColor {
-        return UIColor(red: 92.0 / 255, green: 192.0 / 255, blue: 210.0 / 255, alpha: 1.0)
-    }
-    
-    class func lightRed() -> UIColor {
-        return UIColor(red: 195.0 / 255, green: 123.0 / 255, blue: 175.0 / 255, alpha: 1.0)
-    }
-    
-    class func orange0() -> UIColor {
-        return UIColor(red: 254.0 / 255, green: 241.0 / 255, blue: 229.0 / 255, alpha: 1.0)
-    }
-    
-    class func orange1() -> UIColor {
-        return UIColor(red: 248.0 / 255, green: 198.0 / 255, blue: 149.0 / 255, alpha: 1.0)
-    }
-    
-    class func orange2() -> UIColor {
-        return UIColor(red: 240.0 / 255, green: 175.0 / 255, blue: 110.0 / 255, alpha: 1.0)
-    }
-    
-    class func orange4() -> UIColor {
-        return UIColor(red: 238.0 / 255, green: 150.0 / 255, blue: 64.0 / 255, alpha: 1.0)
-    }
-    
-    class func orange5() -> UIColor {
-        return UIColor(red: 229.0 / 255, green: 116.0 / 255, blue: 15.0 / 255, alpha: 1.0)
-    }
-    
-    class func hex ( hexStr : NSString, alpha : CGFloat) -> UIColor {
-        var alpha = alpha
-        var hexStr = hexStr
-        hexStr = hexStr.replacingOccurrences(of: "#", with: "") as NSString
-        let scanner = Scanner(string: hexStr as String)
-        var color: UInt32 = 0
-        if scanner.scanHexInt32(&color) {
-            let r = CGFloat((color & 0xFF0000) >> 16) / 255.0
-            let g = CGFloat((color & 0x00FF00) >> 8) / 255.0
-            let b = CGFloat(color & 0x0000FF) / 255.0
-            return UIColor(red:r,green:g,blue:b,alpha:alpha)
-        } else {
-            print("不正な値だよ")
-            return UIColor.white
-        }
-    }
-}
-
 class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     @IBOutlet weak var total_smile: UILabel!
@@ -90,6 +43,8 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
         let json = callAPI(name: "laughs/detail", params:["1","2017","10","15"])
         laughs = json
+        print(laughs)
+        print(laughs[5][3])
     }
     
     override func didReceiveMemoryWarning() {
@@ -184,9 +139,12 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         /* セルごとに値を確認し、背景（芝生）の色を絵画する */
         for i in 0..<9 {
             skip_number = 8*i + 9
-            for j in 0..<6 {
+            for j in 0..<7 {
                 if indexPath.row == skip_number {
                     
+                    print(indexPath.row)
+                    print(skip_number)
+
                     switch laughs[i][j].intValue {
                     case 1..<10:
                         cell.backgroundColor = UIColor.orange0()
@@ -195,9 +153,9 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
                     case 21..<40:
                         cell.backgroundColor = UIColor.orange2()
                     case 41..<60:
-                        cell.backgroundColor = UIColor.orange4()
+                        cell.backgroundColor = UIColor.orange3()
                     case 61..<400:
-                        cell.backgroundColor = UIColor.orange5()
+                        cell.backgroundColor = UIColor.orange4()
                     case 0:
                         cell.backgroundColor = UIColor.white
                     default:

@@ -76,10 +76,11 @@ class ViewController: UIViewController {
             //let count = [7, 8, 2, 5, 6, 4, 9]//笑った回数
             let json = callAPI(name: "laughs", params:["1","2017","10","22"])
             let each_day_points = json["weekly"]
+            print(each_day_points)
             
             for i in 0..<7 {
                 let point = each_day_points[i].intValue //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 800-point, width: 30, height: point), cornerRadius: 0)
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point/3, width: 30, height: point/3), cornerRadius: 0)
                 
                 UIColor.orange.setFill() // 色をセット
                 path.fill()
@@ -98,7 +99,7 @@ class ViewController: UIViewController {
             
             for i in 0..<7 {
                 let point = each_day_points[i].intValue //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 800-point, width: 30, height: point), cornerRadius: 0)
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point/3, width: 30, height: point/3), cornerRadius: 0)
                 
                 UIColor.orange.setFill() // 色をセット
                 path.fill()

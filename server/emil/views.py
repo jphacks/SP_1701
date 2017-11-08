@@ -123,7 +123,7 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
                 {'s': {'h': 12, 'm': 20}, 'e': {'h': 13, 'm': 50}},
                 {'s': {'h': 13, 'm': 50}, 'e': {'h': 14, 'm': 35}},
                 {'s': {'h': 14, 'm': 40}, 'e': {'h': 15, 'm': 40}},
-                {'s': {'h': 15, 'm': 40}, 'e': {'h': 23, 'm': 59}},
+                {'s': {'h': 15, 'm': 40}, 'e': {'h': 18, 'm': 0}},
             ]
 
             results = []
@@ -150,8 +150,7 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
                 # 1週間分、時間別の笑った回数を記録
                 results.append(day_laughs_by_one_class)
 
-            # TODO やまたくと相談して返し方を検討
-            return Response(list(map(list, zip(*results))))
+            return Response(results)
 
         else:
             raise ValidationError(serializer.errors)

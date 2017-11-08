@@ -142,7 +142,7 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
                     # print(start, end, laughs.filter(created_at__range=(start, end)).count())
 
                     # 1コマに笑った回数を記録
-                    day_laughs_by_one_class.append(laughs.filter(created_at__range=(start, end)).count())
+                    day_laughs_by_one_class.append(laughs.filter(created_at__range=(start+timedelta(hours=9), end+timedelta(hours=9))).count())
 
                     start = start + timedelta(days=1)
                     end = end + timedelta(days=1)

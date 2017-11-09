@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.core.management.base import BaseCommand
 from ...models import *
 
@@ -23,12 +25,13 @@ class Command(BaseCommand):
             # 1日に笑う総数
             one_day_laugh_count = random.randint(400, 800)
 
-            for laugh_count in range(one_day_laugh_count):
-                hour = random.randint(6, 18)
+            for _ in range(one_day_laugh_count):
+                hour = random.randint(6, 23)
                 miniute = random.randint(0, 59)
 
-                created_at_str = '2017-10-'+str(day)+' '+str(hour)+':'+str(miniute)+':'+str(miniute)
-                print(created_at_str)
+                laugh_datetime = datetime(2017, 10, day, hour, miniute, miniute)
+                print(laugh_datetime)
+                print(laugh_datetime+timedelta(hours=9))
 
                 if not options['test']:
-                    Laugh.objects.create(user=user, created_at=created_at_str)
+                    Laugh.objects.create(user=user, created_at=laugh_datetime+timedelta(hours=9))

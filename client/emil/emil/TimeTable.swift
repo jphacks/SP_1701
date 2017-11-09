@@ -15,7 +15,7 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
     @IBOutlet weak var timetabelColelctionView: UICollectionView!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
+    
     var weekArray = ["","日", "月", "火", "水", "木", "金", "土",
                      "1", "", "", "", "", "", "", "",
                      "2", "", "", "", "", "", "", "",
@@ -44,7 +44,7 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
         let json = callAPI(name: "laughs/detail", params:["1","2017","11","05"])
         laughs = json
-
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -144,7 +144,7 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
                     
                     print(indexPath.row)
                     print(skip_number)
-
+                    
                     switch laughs[i][j].intValue {
                     case 1...10:
                         cell.backgroundColor = UIColor.orange0()
@@ -186,7 +186,6 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
     @IBAction func backToMain(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 

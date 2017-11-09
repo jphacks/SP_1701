@@ -10,7 +10,6 @@ import UIKit
 
 class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     
-    
     @IBOutlet weak var giftText: UITextView!
     @IBOutlet weak var smileageNumber: UITextField!
     
@@ -32,7 +31,6 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         giftText.returnKeyType = .done
         smileageNumber.returnKeyType = .done
         
-        
         giftText.delegate = self
         smileageNumber.delegate = self
     }
@@ -47,12 +45,10 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         })
     }
     
-    
     //「やること」が変更された
     func textViewDidChange(_ textView: UITextView) {
         print("textViewDidChange : \(giftText.text!)")
         gt = String(giftText.text)
-        
     }
     
     /*
@@ -73,8 +69,6 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         return true
     }
     
-    
-    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange,
                   replacementText text: String) -> Bool {
         if text == "\n" {
@@ -83,7 +77,6 @@ class EditCoupon: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         }
         return true
     }
-    
     
     /*
      * アラートのOKを押した時の動作

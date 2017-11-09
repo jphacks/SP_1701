@@ -17,25 +17,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var week: UILabel!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         //viewを定義
         let graphview = Graph(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
         
-        //スマイルポイント
+        //スマイレージ
         let point = appDelegate.total_smileage
-        
-        //スマイルポイントを表示
         total_smile_point.text = "\(point)"
         
         week.text = "10月22日~28日までのスマイレージ"
         
-        // バンドルした画像ファイルを読み込み
         let image = UIImage(named: "smileage.png")
         // Image Viewに画像を設定
         smileage.image = image
@@ -45,7 +41,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     @IBAction func moveTimeTable(_ sender: Any) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Timetable", bundle: nil)
@@ -76,7 +71,6 @@ class ViewController: UIViewController {
                 path.fill()
                 
             }
-            
         }
     }
     
@@ -95,7 +89,6 @@ class ViewController: UIViewController {
                 path.fill()
                 
             }
-            
         }
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 
 class CustomCellTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var gift: UILabel!
     @IBOutlet weak var smileage: UILabel!
     @IBOutlet weak var couponImg: UIImageView!
@@ -18,7 +18,7 @@ class CustomCellTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

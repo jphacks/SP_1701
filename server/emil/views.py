@@ -1,5 +1,5 @@
 import json
-
+import base64
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
@@ -186,5 +186,16 @@ class SoundViewSet(viewsets.ModelViewSet):
             if not sound_detail_serializer.is_valid():
                 return Response(sound_detail_serializer.errors)
 
+            # TODO 実際に受け取ったbase64をデコードして保存してみる
+            f = open('tmp/sample.mp4', 'rb')
+            encoded = base64.b64encode(f.read())
+            f.close()
+
+            f = open('tmp/sample_copy.mp4', 'wb')
+            f.write(base64.b64decode(encoded))
+            f.close()
 
             return Response(json.loads(request.data['sound']))
+
+    def get_queryset(self):
+        pass

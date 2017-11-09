@@ -44,8 +44,8 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         Coupon.delegate = self
         Coupon.dataSource = self
         
-        Total.text = "18594"
-        TotalAll .text = "18594"
+        Total.text = String(appDelegate.available_smileage)
+        TotalAll .text = String(appDelegate.total_smileage)
         
         t = Int(Total.text!)!
         ta = Int(TotalAll.text!)!

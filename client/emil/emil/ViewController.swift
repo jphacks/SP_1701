@@ -16,8 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var smileage: UIImageView!
     @IBOutlet weak var week: UILabel!
     
-    //var json : [String: [Int]] = [:]
-    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         view.addSubview(graphview)
         
         //スマイルポイント
-        let point=18594
+        let point = appDelegate.total_smileage
         
         //スマイルポイントを表示
         total_smile_point.text = "\(point)"

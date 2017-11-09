@@ -12,9 +12,10 @@ import SwiftyJSON
 class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     @IBOutlet weak var total_smile: UILabel!
-    
     @IBOutlet weak var timetabelColelctionView: UICollectionView!
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     var weekArray = ["","日", "月", "火", "水", "木", "金", "土",
                      "1", "", "", "", "", "", "", "",
                      "2", "", "", "", "", "", "", "",
@@ -36,7 +37,7 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        total_smile.text = "18594"
+        total_smile.text = String(appDelegate.total_smileage)
         timetabelColelctionView.delegate = self
         timetabelColelctionView.dataSource = self
         //        timetabelColelctionView.backgroundColor = UIColor.black

@@ -19,8 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                           ("Switch買う", 15000), ("肩もみ", 20),
                           ("ハンバーグ", 200), ("焼肉", 350)]
     
+    
+    var total_smileage = 0 //積算
+    var used_smilegae = 0 //使用したスマイレージ
+    var available_smileage = 0 //利用可能なスマイレージ
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let json = callAPI(name: "users", params:["1"])
+        available_smileage = json["available"].intValue
+        used_smilegae = json["used"].intValue
+        total_smileage = available_smileage + used_smilegae
         return true
     }
 

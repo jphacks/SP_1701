@@ -1,3 +1,5 @@
+import json
+
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
@@ -23,26 +25,6 @@ class UsersViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return User.objects.get(id=self.kwargs.get('user_id'))
-
-
-# class PostCafViewSet(viewsets.ViewSet):
-#
-#     @staticmethod
-#     def create(request):
-#         if request.method == 'POST':
-#             serializer = PostCafSerializer(data=request.data)
-#
-#             if serializer.is_valid():
-#                 serializer = SoundSerializer(data=json.loads(request.data['sound']))
-#
-#                 if serializer.is_valid():
-#                     return Response({'result': 'OK'})
-#                 else:
-#                     return Response(serializer.errors)
-#             else:
-#                 return Response(serializer.errors)
-#         else:
-#             return Response('Not Allow GET method')
 
 
 class LaughsViewSet(viewsets.ModelViewSet):
@@ -183,3 +165,26 @@ class LaughViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return User.objects.get(random_id=self.request.data['user_id'])
+
+
+class SoundViewSet(viewsets.ModelViewSet):
+    http_method_names = ['post']
+    serializer_class = SoundSerializer
+
+    def create(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            sound_serializer = SoundSerializer(data=request.data)
+
+            if not sound_serializer.is_valid():
+                return Response(sound_serializer.errors)
+
+            try:
+                sound_detail_serializer = SoundDetailSerializer(data=json.loads(request.data['sound']))
+            except ValueError:
+                raise ValidationError('JSON parse error', 400)
+
+            if not sound_detail_serializer.is_valid():
+                return Response(sound_detail_serializer.errors)
+
+
+            return Response(json.loads(request.data['sound']))

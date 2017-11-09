@@ -41,10 +41,12 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         timetabelColelctionView.dataSource = self
         //        timetabelColelctionView.backgroundColor = UIColor.black
         
-        let json = callAPI(name: "laughs/detail", params:["1","2017","10","15"])
+        let json = callAPI(name: "laughs/detail", params:["1","2017","10","22"])
         laughs = json
         print(laughs)
-        print(laughs[5][3])
+        print(laughs[4][2])
+        print(laughs[5][2])
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -137,24 +139,24 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
         cell.backgroundColor = UIColor.white
         /* セルごとに値を確認し、背景（芝生）の色を絵画する */
-        for i in 0..<9 {
+        for i in 0...8 {
             skip_number = 8*i + 9
-            for j in 0..<7 {
+            for j in 0...6 {
                 if indexPath.row == skip_number {
                     
                     print(indexPath.row)
                     print(skip_number)
 
                     switch laughs[i][j].intValue {
-                    case 1..<10:
+                    case 1...10:
                         cell.backgroundColor = UIColor.orange0()
-                    case 11..<20:
+                    case 11...20:
                         cell.backgroundColor = UIColor.orange1()
-                    case 21..<40:
+                    case 21...40:
                         cell.backgroundColor = UIColor.orange2()
-                    case 41..<60:
+                    case 41...60:
                         cell.backgroundColor = UIColor.orange3()
-                    case 61..<400:
+                    case 61...400:
                         cell.backgroundColor = UIColor.orange4()
                     case 0:
                         cell.backgroundColor = UIColor.white

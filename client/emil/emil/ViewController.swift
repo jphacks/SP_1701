@@ -8,34 +8,30 @@
 
 import UIKit
 import Foundation
-
+import SwiftyJSON
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var total_smile_point: UILabel!
     @IBOutlet weak var smileage: UIImageView!
     @IBOutlet weak var week: UILabel!
-    // API接続先
-    let urlStr = "http://kentaiwami.jp/pinkie/api/"
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         //viewを定義
         let graphview = Graph(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
         
-        //スマイルポイント
-        let point=18594
-        
-        //スマイルポイントを表示
+        //スマイレージ
+        let point = appDelegate.total_smileage
         total_smile_point.text = "\(point)"
         
-        week.text = "10月22日~28日までのスマイレージ"
+        week.text = "11月12日から一週間分のスマイレージ"
         
-        // バンドルした画像ファイルを読み込み
         let image = UIImage(named: "smileage.png")
         // Image Viewに画像を設定
         smileage.image = image
@@ -45,7 +41,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     @IBAction func moveTimeTable(_ sender: Any) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Timetable", bundle: nil)
@@ -63,17 +58,18 @@ class ViewController: UIViewController {
     class Graph: UIView {
         override func draw(_ rect: CGRect) {
             
-            let count = [7, 8, 2, 5, 6, 4, 9]//笑った回数
+            let json = callAPI(name: "laughs", params:["1","2017","11","12"])
+            let each_day_points = json["weekly"]
+            print(each_day_points)
             
             for i in 0..<7 {
-                let point = count[i]*40 //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point, width: 30, height: point), cornerRadius: 0)
+                let point = each_day_points[i].intValue //笑った回数分のポイント
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point/3, width: 30, height: point/3), cornerRadius: 0)
                 
                 UIColor.orange.setFill() // 色をセット
                 path.fill()
                 
             }
-            
         }
     }
     
@@ -81,17 +77,17 @@ class ViewController: UIViewController {
     class Graph2: UIView {
         override func draw(_ rect: CGRect) {
             
-            let count = [1, 3, 5, 7, 6, 4, 5]//笑った回数
+            let json = callAPI(name: "laughs", params:["1","2017","11","05"])
+            let each_day_points = json["weekly"]
             
             for i in 0..<7 {
-                let point = count[i]*40 //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point, width: 30, height: point), cornerRadius: 0)
+                let point = each_day_points[i].intValue //笑った回数分のポイント
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point/3, width: 30, height: point/3), cornerRadius: 0)
                 
                 UIColor.orange.setFill() // 色をセット
                 path.fill()
                 
             }
-            
         }
     }
     
@@ -102,7 +98,7 @@ class ViewController: UIViewController {
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
         
-        week.text = "10月15日~21日までのスマイレージ"
+        week.text = "11月05日から一週間分のスマイレージ"
     }
     
     //押すごとに最新のグラフを表示
@@ -112,7 +108,7 @@ class ViewController: UIViewController {
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
         
-        week.text = "10月22日~28日までのスマイレージ"
+        week.text = "11月12日から一週間分のスマイレージ"
     }
 }
 

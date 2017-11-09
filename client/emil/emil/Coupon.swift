@@ -8,28 +8,6 @@
 
 import UIKit
 
-extension UIColor {
-    class func orange0() -> UIColor {
-        return UIColor(red: 254.0 / 255, green: 241.0 / 255, blue: 229.0 / 255, alpha: 1.0)
-    }
-    
-    class func orange1() -> UIColor {
-        return UIColor(red: 248.0 / 255, green: 198.0 / 255, blue: 149.0 / 255, alpha: 1.0)
-    }
-    
-    class func orange2() -> UIColor {
-        return UIColor(red: 240.0 / 255, green: 175.0 / 255, blue: 110.0 / 255, alpha: 1.0)
-    }
-    
-    class func orange4() -> UIColor {
-        return UIColor(red: 238.0 / 255, green: 150.0 / 255, blue: 64.0 / 255, alpha: 1.0)
-    }
-    
-    class func orange5() -> UIColor {
-        return UIColor(red: 229.0 / 255, green: 116.0 / 255, blue: 15.0 / 255, alpha: 1.0)
-    }
-}
-
 class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var Coupon: UITableView!
@@ -48,7 +26,6 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         Coupon.register(UINib(nibName: "CustomCellTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomCellTableViewCell")
         
-        
         /* 画面上部の影部分 */
         shadow.layer.shadowColor = UIColor.black.cgColor
         shadow.layer.shadowOpacity = 0.3 // 透明度
@@ -66,8 +43,8 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         Coupon.delegate = self
         Coupon.dataSource = self
         
-        Total.text = "18594"
-        TotalAll .text = "18594"
+        Total.text = String(appDelegate.available_smileage)
+        TotalAll .text = String(appDelegate.total_smileage)
         
         t = Int(Total.text!)!
         ta = Int(TotalAll.text!)!
@@ -130,7 +107,6 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.appDelegate.coupon_data.remove(at: indexPath.row)
             self.Coupon.reloadData()
             
-            
         })
         // キャンセルボタン
         let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.cancel, handler:{
@@ -148,19 +124,11 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func postSearchViewControllerDismissionAction() {
         
-        // 各セルの内容の要素を作る処理(今回は、データベースから値を読み込み配列に格納)
-        //self.setUp()
         // 再描画
         self.Coupon.reloadData()
         
     }
     
-    //    func setUp() {
-    //
-    //        // データベースから値を読み込み配列に格納
-    //        // 処理省略
-    //
-    //    }
     /* 戻るボタン */
     @IBAction func backToMain(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -171,9 +139,6 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let next = storyboard.instantiateInitialViewController()! as! EditCoupon
         next.postDismissionAction = { self.postSearchViewControllerDismissionAction()}
         present(next, animated: true, completion: nil)
-        //        let addSearchViewController = self.storyboard?.instantiateViewController(withIdentifier: "EditCoupon") as! EditCoupon
-        
-        //self.present(addSearchViewController, animated: true, completion: nil)
     }
     
 }

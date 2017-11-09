@@ -41,11 +41,8 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         timetabelColelctionView.dataSource = self
         //        timetabelColelctionView.backgroundColor = UIColor.black
         
-        let json = callAPI(name: "laughs/detail", params:["1","2017","10","22"])
+        let json = callAPI(name: "laughs/detail", params:["1","2017","11","05"])
         laughs = json
-        print(laughs)
-        print(laughs[4][2])
-        print(laughs[5][2])
 
     }
     

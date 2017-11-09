@@ -22,16 +22,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
-        /*
-         * JSONデータを取得してくる
-         * key：weekly
-         * json["weekly"][数値] という風にすることで、weeklyのn番目の値を取得できる
-         */
-//        let json = callAPI(name: "laughs", params:["1","2017","10","22"])
-//        print(json)
-//        print(json["weekly"][0])
-        
         //viewを定義
         let graphview = Graph(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
         graphview.backgroundColor = UIColor.white

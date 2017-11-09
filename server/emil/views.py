@@ -159,11 +159,13 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
         return User.objects.get(id=self.kwargs.get('user_id'))
 
 
-class SaveLaughViewSet(viewsets.ViewSet):
-    @staticmethod
-    def create(request):
+class LaughViewSet(viewsets.ModelViewSet):
+    http_method_names = ['post']
+    serializer_class = LaughSerializer
+
+    def create(self, request, *args, **kwargs):
         if request.method == 'POST':
-            serializer = SaveLaughSerializer(data=request.data)
+            serializer = LaughSerializer(data=request.data)
 
             if serializer.is_valid():
                 try:
@@ -178,3 +180,6 @@ class SaveLaughViewSet(viewsets.ViewSet):
                 raise ValidationError(serializer.errors)
         else:
             raise ValidationError('Do not get method')
+
+    def get_queryset(self):
+        return User.objects.get(random_id=self.request.data['user_id'])

@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         let point = appDelegate.total_smileage
         total_smile_point.text = "\(point)"
         
-        week.text = "10月22日~28日までのスマイレージ"
+        week.text = "11月12日から一週間分のスマイレージ"
         
         let image = UIImage(named: "smileage.png")
         // Image Viewに画像を設定
@@ -58,8 +58,7 @@ class ViewController: UIViewController {
     class Graph: UIView {
         override func draw(_ rect: CGRect) {
             
-            //let count = [7, 8, 2, 5, 6, 4, 9]//笑った回数
-            let json = callAPI(name: "laughs", params:["1","2017","10","22"])
+            let json = callAPI(name: "laughs", params:["1","2017","11","12"])
             let each_day_points = json["weekly"]
             print(each_day_points)
             
@@ -78,7 +77,7 @@ class ViewController: UIViewController {
     class Graph2: UIView {
         override func draw(_ rect: CGRect) {
             
-            let json = callAPI(name: "laughs", params:["1","2017","10","15"])
+            let json = callAPI(name: "laughs", params:["1","2017","11","05"])
             let each_day_points = json["weekly"]
             
             for i in 0..<7 {
@@ -99,7 +98,7 @@ class ViewController: UIViewController {
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
         
-        week.text = "10月15日~21日までのスマイレージ"
+        week.text = "11月05日から一週間分のスマイレージ"
     }
     
     //押すごとに最新のグラフを表示
@@ -109,7 +108,7 @@ class ViewController: UIViewController {
         graphview.backgroundColor = UIColor.white
         view.addSubview(graphview)
         
-        week.text = "10月22日~28日までのスマイレージ"
+        week.text = "11月12日から一週間分のスマイレージ"
     }
 }
 

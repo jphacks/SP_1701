@@ -13,6 +13,7 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     @IBOutlet weak var total_smile: UILabel!
     @IBOutlet weak var timetabelColelctionView: UICollectionView!
+    @IBOutlet weak var segment_week: UISegmentedControl!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -26,12 +27,17 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
                      "5", "", "", "", "", "", "", "",
                      "6", "", "", "", "", "", "", "",
                      "放", "", "", "", "", "", "", ""]
-    var titles: [String] = [ "F7C594", "E4740E", "FFFFFF"]
     
     let cellMargin: CGFloat = 0.0 //マージン
     
+    var segment_number = 0
+    
+    var skip_number: Int = 0
+    
     var comment = ""
     var laughs:JSON = ""
+    var laughs2:JSON = ""
+    var laughs3:JSON = ""
     //    let linePoint: CGFloat = 5     // 罫線の太さ
     //    let numberOfCols: CGFloat = 7  // 1行に表示するセルの数
     
@@ -42,9 +48,10 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         timetabelColelctionView.dataSource = self
         //        timetabelColelctionView.backgroundColor = UIColor.black
         
-        let json = callAPI(name: "laughs/detail", params:["1","2017","11","05"])
-        laughs = json
         
+        laughs = appDelegate.this_week
+        laughs2 = appDelegate.last_week
+        laughs3 = appDelegate.last2_week
     }
     
     override func didReceiveMemoryWarning() {
@@ -133,10 +140,42 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
         let cell : CalendarCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath) as! CalendarCell
         
-        var skip_number: Int
-        
         cell.backgroundColor = UIColor.white
-        /* セルごとに値を確認し、背景（芝生）の色を絵画する */
+        
+        if segment_number == 0 {
+            drow_background_cell(data: laughs, cell: cell, indexPath: indexPath)
+            
+        }else if segment_number == 1{
+            drow_background_cell(data: laughs2, cell: cell, indexPath: indexPath)
+            
+        }else if segment_number == 2{
+            drow_background_cell(data: laughs3, cell: cell, indexPath: indexPath)
+            
+        }
+        cell.textLabel.text = weekArray[indexPath.row]
+        
+        return cell
+        
+    }
+    
+    /*
+     Sectionに値を設定する
+     */
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Section", for: indexPath)
+        
+        headerView.backgroundColor = UIColor.white
+        
+        return headerView
+    }
+    
+    /*
+     *
+     * セルごとに値を確認し、背景（芝生）の色を絵画する
+     */
+
+    func drow_background_cell(data: JSON, cell: CalendarCell, indexPath: IndexPath){
         for i in 0...8 {
             skip_number = 8*i + 9
             for j in 0...6 {
@@ -145,7 +184,7 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
                     print(indexPath.row)
                     print(skip_number)
                     
-                    switch laughs[i][j].intValue {
+                    switch data[i][j].intValue {
                     case 1...10:
                         cell.backgroundColor = UIColor.orange0()
                     case 11...20:
@@ -165,27 +204,29 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
                 skip_number = skip_number + 1
             }
         }
-        
-        cell.textLabel.text = weekArray[indexPath.row]
-        
-        return cell
-    }
-    
-    /*
-     Sectionに値を設定する
-     */
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Section", for: indexPath)
-        
-        headerView.backgroundColor = UIColor.white
-        
-        return headerView
     }
     
     @IBAction func backToMain(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    /*
+     * セグメントボタンを押した時の処理
+     * どこかのボタンを押すたびにCollectionViewをリロードするようにする
+     */
+    @IBAction func segment_change(_ sender: Any) {
+        switch (sender as AnyObject).selectedSegmentIndex {
+        case 0:
+            segment_number = 0
+            self.timetabelColelctionView.reloadData()
+        case 1:
+            segment_number = 1
+            self.timetabelColelctionView.reloadData()
+        case 2:
+            segment_number = 2
+            self.timetabelColelctionView.reloadData()
+        default:
+            break
+        }
+    }
 }
-
-

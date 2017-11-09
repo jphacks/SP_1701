@@ -23,12 +23,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var used_smilegae = 0 //使用したスマイレージ
     var available_smileage = 0 //利用可能なスマイレージ
     
+    var this_week:JSON = ""
+    var last_week:JSON = ""
+    var last2_week:JSON = ""
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         let json = callAPI(name: "users", params:["1"])
         available_smileage = json["available"].intValue
         used_smilegae = json["used"].intValue
         total_smileage = available_smileage + used_smilegae
+        
+        let t = callAPI(name: "laughs/detail", params:["1","2017","11","12"])
+        let l = callAPI(name: "laughs/detail", params:["1","2017","11","05"])
+        let l2 = callAPI(name: "laughs/detail", params:["1","2017","10","29"])
+        
+        this_week = t
+        last_week = l
+        last2_week = l2
+        
         return true
     }
     

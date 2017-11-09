@@ -64,11 +64,24 @@
                                     <action selector="backToMain:" destination="qJS-5V-qxb" eventType="touchUpInside" id="TNk-zt-Yzg"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jOC-J9-0Fd">
+                                <rect key="frame" x="156" y="619" width="180" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="今週"/>
+                                    <segment title="先週"/>
+                                    <segment title="2週間前"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segment_change:" destination="qJS-5V-qxb" eventType="valueChanged" id="eTw-q5-PYK"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="acE-an-cPZ"/>
                     </view>
                     <connections>
+                        <outlet property="segment_week" destination="jOC-J9-0Fd" id="dHu-d7-UQQ"/>
                         <outlet property="timetabelColelctionView" destination="sss-on-K1f" id="q8r-Ah-gPQ"/>
                         <outlet property="total_smile" destination="Qv4-Cp-it6" id="xPJ-Ss-A9p"/>
                     </connections>

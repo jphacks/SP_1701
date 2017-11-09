@@ -20,6 +20,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //recordButton.setTitle("録音開始", for: .normal)
         
         /// 録音可能カテゴリに設定する
         let session = AVAudioSession.sharedInstance()
@@ -52,13 +53,6 @@ class ViewController: UIViewController {
     }
     
     func setupAudioRecorder() {
-        
-        // 録音用URLを設定
-        let dirURL = documentsDirectoryURL()
-        print(dirURL)
-        let fileName = "recording.caf"
-        let recordingsURL = dirURL.appendingPathComponent(fileName)
-        
         // 録音設定
         let recordSettings: [String: AnyObject] =
             [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue as AnyObject,
@@ -67,7 +61,7 @@ class ViewController: UIViewController {
              AVSampleRateKey: 44100.0 as AnyObject]
         
         do {
-            audioRecorder = try AVAudioRecorder(url: recordingsURL!, settings: recordSettings)
+            audioRecorder = try AVAudioRecorder(url: recordingURL! as URL, settings: recordSettings)
         } catch {
             audioRecorder = nil
         }
@@ -88,26 +82,66 @@ class ViewController: UIViewController {
     @IBAction func startRecordButtonTapped(_ sender: Any) {
         if (audioRecorder?.isRecording)! {
             audioRecorder?.stop()
-            fileUpload()
+            convertFile(fileURL: recordingURL! as URL)
+            //fileUpload()
         }else{
             audioRecorder?.record()
         }
     }
     
-    func fileUpload(){
+    func convertFile(fileURL: URL) {
+        let audioURL = fileURL
+        let fileMgr = FileManager.default
+        let dirPaths = fileMgr.urls(for: .documentDirectory,
+                                    in: .userDomainMask)
+        let outputUrl = dirPaths[0].appendingPathComponent("recording.mp4")
+        let asset = AVAsset.init(url: audioURL)
+        let exportSession = AVAssetExportSession.init(asset: asset, presetName: AVAssetExportPresetHighestQuality)
+        
+        // remove file if already exits
+        let fileManager = FileManager.default
+        do{
+            try? fileManager.removeItem(at: outputUrl)
+        }catch{
+            print("can't")
+        }
+        
+        exportSession?.outputFileType = AVFileType.mp4
+        exportSession?.outputURL = outputUrl
+        exportSession?.metadata = asset.metadata
+        exportSession?.exportAsynchronously(completionHandler: {
+            if (exportSession?.status == .completed)
+            {
+                print("AV export succeeded.")
+                self.fileUpload(fileURL: outputUrl)
+                
+            }
+            else if (exportSession?.status == .cancelled)
+            {
+                print("AV export cancelled.")
+            }
+            else
+            {
+                print ("Error is \(String(describing: exportSession?.error))")
+                
+            }
+        })
+    }
+    
+    func fileUpload(fileURL: URL){
         let myUrl:NSURL = NSURL(string: "http://kentaiwami.jp")!
-        let fileurldata:Data = try! Data(contentsOf:recordingURL! as URL)
+        let fileurldata:Data = try! Data(contentsOf:fileURL as URL)
+        print(fileURL)
         let request = NSMutableURLRequest(url: myUrl as URL)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
         let base64String = fileurldata.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
         let params = ["sound":[ "content_type": "audio/x-caf", "filename":"recording.caf", "file_data": base64String]]
         request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions(rawValue: 0))
     
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             if let data = data, let response = response {
-                print(response)
+                //print(response)
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
                     print(json)

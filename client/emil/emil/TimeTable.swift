@@ -13,7 +13,6 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     @IBOutlet weak var total_smile: UILabel!
     @IBOutlet weak var timetabelColelctionView: UICollectionView!
-    @IBOutlet weak var segment_week: UISegmentedControl!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -33,13 +32,8 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
     var segment_number = 0
     
     var skip_number: Int = 0
-    
-    var comment = ""
-    var laughs:JSON = ""
-    var laughs2:JSON = ""
-    var laughs3:JSON = ""
+
     //    let linePoint: CGFloat = 5     // 罫線の太さ
-    //    let numberOfCols: CGFloat = 7  // 1行に表示するセルの数
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,11 +41,7 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         timetabelColelctionView.delegate = self
         timetabelColelctionView.dataSource = self
         //        timetabelColelctionView.backgroundColor = UIColor.black
-        
-        
-        laughs = appDelegate.this_week
-        laughs2 = appDelegate.last_week
-        laughs3 = appDelegate.last2_week
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -143,13 +133,13 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         cell.backgroundColor = UIColor.white
         
         if segment_number == 0 {
-            drow_background_cell(data: laughs, cell: cell, indexPath: indexPath)
+            drow_background_cell(data: appDelegate.this_week, cell: cell, indexPath: indexPath)
             
         }else if segment_number == 1{
-            drow_background_cell(data: laughs2, cell: cell, indexPath: indexPath)
+            drow_background_cell(data: appDelegate.last_week, cell: cell, indexPath: indexPath)
             
         }else if segment_number == 2{
-            drow_background_cell(data: laughs3, cell: cell, indexPath: indexPath)
+            drow_background_cell(data: appDelegate.last2_week, cell: cell, indexPath: indexPath)
             
         }
         cell.textLabel.text = weekArray[indexPath.row]
@@ -181,8 +171,8 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
             for j in 0...6 {
                 if indexPath.row == skip_number {
                     
-                    print(indexPath.row)
-                    print(skip_number)
+//                    print(indexPath.row)
+//                    print(skip_number)
                     
                     switch data[i][j].intValue {
                     case 1...10:

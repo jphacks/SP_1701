@@ -17,6 +17,7 @@
 		7CDB34071FB5560600560A9B /* PowerLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB34061FB5560600560A9B /* PowerLevel.swift */; };
 		7CDB34091FB5F02C00560A9B /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB34081FB5F02C00560A9B /* FileUploader.swift */; };
 		7CDB340B1FB5F14E00560A9B /* FileConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB340A1FB5F14E00560A9B /* FileConverter.swift */; };
+		7CDB340D1FB5FC8500560A9B /* AudioRecoderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB340C1FB5FC8500560A9B /* AudioRecoderManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		7CDB34061FB5560600560A9B /* PowerLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerLevel.swift; sourceTree = "<group>"; };
 		7CDB34081FB5F02C00560A9B /* FileUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploader.swift; sourceTree = "<group>"; };
 		7CDB340A1FB5F14E00560A9B /* FileConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileConverter.swift; sourceTree = "<group>"; };
+		7CDB340C1FB5FC8500560A9B /* AudioRecoderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecoderManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 			children = (
 				7C10DD331FA2EFA600B30090 /* AppDelegate.swift */,
 				7C10DD351FA2EFA600B30090 /* ViewController.swift */,
+				7CDB340C1FB5FC8500560A9B /* AudioRecoderManager.swift */,
 				7CDB340A1FB5F14E00560A9B /* FileConverter.swift */,
 				7CDB34081FB5F02C00560A9B /* FileUploader.swift */,
 				7CDB34061FB5560600560A9B /* PowerLevel.swift */,
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C10DD361FA2EFA600B30090 /* ViewController.swift in Sources */,
+				7CDB340D1FB5FC8500560A9B /* AudioRecoderManager.swift in Sources */,
 				7CDB34091FB5F02C00560A9B /* FileUploader.swift in Sources */,
 				7C10DD341FA2EFA600B30090 /* AppDelegate.swift in Sources */,
 				7CDB34071FB5560600560A9B /* PowerLevel.swift in Sources */,

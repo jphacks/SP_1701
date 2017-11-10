@@ -17,10 +17,10 @@ class ViewController: UIViewController {
     var dirURL: NSURL?
     var recordingURL: NSURL?
     let fileName = "recording.caf"
+    //var obj: PowerLevel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //recordButton.setTitle("録音開始", for: .normal)
         
         /// 録音可能カテゴリに設定する
         let session = AVAudioSession.sharedInstance()
@@ -44,6 +44,8 @@ class ViewController: UIViewController {
         recordingURL = dirURL?.appendingPathComponent(fileName) as NSURL?
         
         self.setupAudioRecorder()
+        
+        //obj = PowerLevel()
         
     }
 
@@ -83,9 +85,10 @@ class ViewController: UIViewController {
         if (audioRecorder?.isRecording)! {
             audioRecorder?.stop()
             convertFile(fileURL: recordingURL! as URL)
-            //fileUpload()
+            //obj?.stop()
         }else{
             audioRecorder?.record()
+            //obj?.start()
         }
     }
     
@@ -129,19 +132,21 @@ class ViewController: UIViewController {
     }
     
     func fileUpload(fileURL: URL){
-        let myUrl:NSURL = NSURL(string: "http://kentaiwami.jp")!
+        let myUrl:NSURL = NSURL(string: "https://kentaiwami.jp/emil/api/sound/")!
         let fileurldata:Data = try! Data(contentsOf:fileURL as URL)
         print(fileURL)
+        let base64String = fileurldata.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
+        
+        let params:[String:Any] = ["user_id": "1", "file_data": base64String]
+        
         let request = NSMutableURLRequest(url: myUrl as URL)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let base64String = fileurldata.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
-        let params = ["sound":[ "content_type": "audio/x-caf", "filename":"recording.caf", "file_data": base64String]]
         request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions(rawValue: 0))
     
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             if let data = data, let response = response {
-                //print(response)
+                print(response)
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
                     print(json)

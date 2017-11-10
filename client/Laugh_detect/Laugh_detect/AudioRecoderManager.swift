@@ -9,8 +9,14 @@
 import AVFoundation
 
 class AudioRecoderManager: NSObject {
-    static let sharedInstance = AudioRecoderManager()
+    static let shared = AudioRecoderManager()
     var audioRecorder: AVAudioRecorder?
+    
+    private override init(){
+        super.init()
+        setupAudioSession()
+        setupAudioRecorder()
+    }
 
     func setupAudioRecorder() {
         let recordSettings: [String: AnyObject] =
@@ -19,14 +25,27 @@ class AudioRecoderManager: NSObject {
         AVNumberOfChannelsKey: 2 as AnyObject,
         AVSampleRateKey: 44100.0 as AnyObject]
         
-        /*
         do {
-            //TODO
-            //音声ファイルのパスをどのクラスからでも取得できるようにする
-            //audioRecorder = try AVAudioRecorder(url: recordingURL! as URL, settings: recordSettings)
+            audioRecorder = try AVAudioRecorder(url: FilePathManager.shared.path! as URL, settings: recordSettings)
         } catch {
-            //audioRecorder = nil
+            audioRecorder = nil
         }
- */
+    }
+
+    func setupAudioSession(){
+        /// 録音可能カテゴリに設定する
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+        } catch  {
+            fatalError("カテゴリ設定失敗")
+        }
+        
+        // sessionのアクティブ化
+        do {
+            try session.setActive(true)
+        } catch {
+            fatalError("session有効化失敗")
+        }
     }
 }

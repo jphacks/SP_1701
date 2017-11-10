@@ -11,6 +11,7 @@ import AVFoundation
 class AudioRecoderManager: NSObject {
     static let shared = AudioRecoderManager()
     var audioRecorder: AVAudioRecorder?
+    @objc dynamic var recFlag = false
     
     private override init(){
         super.init()
@@ -48,4 +49,10 @@ class AudioRecoderManager: NSObject {
             fatalError("session有効化失敗")
         }
     }
+    
+    func setRecFlag(bool: Bool){
+        recFlag = bool
+    }
+    
+    
 }

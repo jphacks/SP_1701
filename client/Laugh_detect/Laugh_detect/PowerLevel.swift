@@ -52,7 +52,17 @@ extension PowerLevel: AVCaptureAudioDataOutputSampleBufferDelegate {
             let peakHoldLevel = audioChannels.reduce(0.0){ $0 + $1.peakHoldLevel }
                 / Float(audioChannels.count)
             if(peakHoldLevel > -5.0){
-                print("\(peakHoldLevel)")
+                //print("\(peakHoldLevel)")
+                if(!(AudioRecoderManager.shared.audioRecorder?.isRecording)!){
+                    AudioRecoderManager.shared.audioRecorder?.record()
+                    fileUpload(fileURL: FilePathManager.shared.path! as URL)
+                    AudioRecoderManager.shared.setRecFlag(bool: true)
+                }
+            }else{
+                if(AudioRecoderManager.shared.audioRecorder?.isRecording)!{
+                    AudioRecoderManager.shared.audioRecorder?.stop()
+                    AudioRecoderManager.shared.setRecFlag(bool: false)                    
+                }
             }
         }
     }

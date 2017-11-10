@@ -196,13 +196,14 @@ class SoundViewSet(viewsets.ModelViewSet):
             now = datetime.now()
             now_str = now.strftime('%Y-%m-%d %H:%M:%S')
 
-            filename = 'tmp/' + json_data['user_id'][0] + '_' + now_str + '.caf'
+            filename_base = 'tmp/' + json_data['user_id'][0] + '_' + now_str
+            filename_caf = filename_base + '.caf'
 
-            f = open(filename, 'wb')
+            f = open(filename_caf, 'wb')
             f.write(base64.b64decode(encoded))
             f.close()
 
-            return Response(filename)
+            return Response(filename_caf)
 
     def get_queryset(self):
         return User.objects.get(id=self.request.data['user_id'])

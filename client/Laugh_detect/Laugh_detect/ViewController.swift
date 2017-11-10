@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var recLabel: UILabel!
 
-    var obj: PowerLevel?
+    var powerLevel: PowerLevel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +21,9 @@ class ViewController: UIViewController {
         //AudioRecoderManagerのrecFlagを監視
         AudioRecoderManager.shared.addObserver(self, forKeyPath: "recFlag",options: [.old, .new], context: nil)
         
-        obj = PowerLevel()
-        obj?.start()
+        //マイクからの音量検知を開始
+        powerLevel = PowerLevel()
+        powerLevel?.start()
         
     }
     

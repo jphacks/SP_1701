@@ -37,10 +37,6 @@ class ViewController: UIViewController {
         } catch {
             fatalError("session有効化失敗")
         }
-        
-        dirURL = documentsDirectoryURL()
-        recordingURL = dirURL?.appendingPathComponent(fileName) as NSURL?
-        
         self.setupAudioRecorder()
         
         obj = PowerLevel()
@@ -61,26 +57,17 @@ class ViewController: UIViewController {
              AVSampleRateKey: 44100.0 as AnyObject]
         
         do {
-            audioRecorder = try AVAudioRecorder(url: recordingURL! as URL, settings: recordSettings)
+            audioRecorder = try AVAudioRecorder(url: FilePathManager.shared.path! as URL, settings: recordSettings)
         } catch {
             audioRecorder = nil
         }
         
     }
 
-    func documentsDirectoryURL() -> NSURL {
-        let urls = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
-        
-        if urls.isEmpty {
-            fatalError("URLs for directory are empty.")
-        }
-        return urls[0] as NSURL
-    }
-    
     @IBAction func startRecordButtonTapped(_ sender: Any) {
         if (audioRecorder?.isRecording)! {
             audioRecorder?.stop()
-            convertFile(fileURL: recordingURL! as URL)
+            convertFile(fileURL: FilePathManager.shared.path! as URL)
             recLabel.text = ""
         }else{
             audioRecorder?.record()

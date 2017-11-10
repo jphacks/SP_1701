@@ -183,21 +183,23 @@ class SoundViewSet(viewsets.ModelViewSet):
             json_data = dict(request.data)
 
             # TODO 実際に受け取ったbase64をデコードして保存してみる
-            # f = open('tmp/sample.mp4', 'rb')
+            # f = open('tmp/recording1.caf', 'rb')
             # encoded = base64.b64encode(f.read())
             # f.close()
+
+            # パッティングして規定に合わせる
+            encoded = json_data['file_data'][0]
+            missing_padding = len(encoded) % 4
+            if missing_padding != 0:
+                encoded += b'=' * (4 - len(encoded) % 4)
 
             now = datetime.now()
             now_str = now.strftime('%Y-%m-%d %H:%M:%S')
 
-            filename = 'tmp/' + json_data['user_id'][0] + '_' + now_str + '.mp4'
+            filename = 'tmp/' + json_data['user_id'][0] + '_' + now_str + '.caf'
 
-            try:
-                f = open(filename, 'wb')
-            except ValidationError:
-                raise ValidationError(404)
-
-            f.write(base64.b64decode(json_data['file_data'][0]))
+            f = open(filename, 'wb')
+            f.write(base64.b64decode(encoded))
             f.close()
 
             return Response(filename)

@@ -28,7 +28,6 @@ class ViewController: UIViewController {
         do {
             try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
         } catch  {
-            // エラー処理
             fatalError("カテゴリ設定失敗")
         }
         
@@ -36,8 +35,6 @@ class ViewController: UIViewController {
         do {
             try session.setActive(true)
         } catch {
-            // audio session有効化失敗時の処理
-            // (ここではエラーとして停止している）
             fatalError("session有効化失敗")
         }
         
@@ -57,7 +54,6 @@ class ViewController: UIViewController {
     }
     
     func setupAudioRecorder() {
-        // 録音設定
         let recordSettings: [String: AnyObject] =
             [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue as AnyObject,
              AVEncoderBitRateKey: 16 as AnyObject,
@@ -71,15 +67,13 @@ class ViewController: UIViewController {
         }
         
     }
-    /// DocumentsのURLを取得
+
     func documentsDirectoryURL() -> NSURL {
         let urls = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
         
         if urls.isEmpty {
-            
             fatalError("URLs for directory are empty.")
         }
-        
         return urls[0] as NSURL
     }
     

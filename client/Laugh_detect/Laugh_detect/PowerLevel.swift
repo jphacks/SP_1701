@@ -47,8 +47,13 @@ extension PowerLevel: AVCaptureAudioDataOutputSampleBufferDelegate {
         
         // キャプチャコネクションからオーディオチャンネルを取得し、パワーレベル(dB)を入手
         let audioChannels = connection.audioChannels.filter{ $0 is AVCaptureAudioChannel }
-        audioChannels.forEach {
-            print("\($0.averagePowerLevel) / \($0.peakHoldLevel)")
+        
+        if !audioChannels.isEmpty {
+            let peakHoldLevel = audioChannels.reduce(0.0){ $0 + $1.peakHoldLevel }
+                / Float(audioChannels.count)
+            if(peakHoldLevel > -5.0){
+                print("\(peakHoldLevel)")
+            }
         }
     }
 }

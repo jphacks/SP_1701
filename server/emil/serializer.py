@@ -8,14 +8,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('random_id', 'available_smileage', 'used_smileage')
 
 
-class SoundDetailSerializer(serializers.Serializer):
-    content_type = serializers.CharField(allow_blank=False, allow_null=False, required=True)
-    filename = serializers.CharField(allow_blank=False, allow_null=False, required=True)
-    file_data = serializers.CharField(allow_blank=False, allow_null=False, required=True)
-
-
 class SoundSerializer(serializers.Serializer):
-    sound = serializers.CharField(allow_blank=False, allow_null=False, required=True)
+    user_id = serializers.CharField(allow_null=False, allow_blank=False, required=True, max_length=10)
+    file_data = serializers.CharField(allow_blank=False, allow_null=False, required=True)
 
 
 class LaughsSerializer(serializers.Serializer):

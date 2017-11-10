@@ -16,12 +16,12 @@ class UsersViewSet(viewsets.ModelViewSet):
         try:
             user = self.get_queryset()
         except ObjectDoesNotExist:
-                raise ValidationError(404)
+            raise ValidationError(404)
 
         return Response({
             'available': user.available_smileage,
             'used': user.used_smileage
-            })
+        })
 
     def get_queryset(self):
         return User.objects.get(id=self.kwargs.get('user_id'))
@@ -73,7 +73,8 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
 
         if serializer.is_valid():
 
-            weekday = datetime.strptime(kwargs.get('year') + '/' + kwargs.get('month') + '/' + kwargs.get('day'), '%Y/%m/%d').weekday()
+            weekday = datetime.strptime(kwargs.get('year') + '/' + kwargs.get('month') + '/' + kwargs.get('day'),
+                                        '%Y/%m/%d').weekday()
 
             # 指定された日付が日曜日かをチェック
             if weekday != 6:
@@ -124,7 +125,8 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
                     # print(start, end, laughs.filter(created_at__range=(start, end)).count())
 
                     # 1コマに笑った回数を記録
-                    day_laughs_by_one_class.append(laughs.filter(created_at__range=(start+timedelta(hours=9), end+timedelta(hours=9))).count())
+                    day_laughs_by_one_class.append(
+                        laughs.filter(created_at__range=(start + timedelta(hours=9), end + timedelta(hours=9))).count())
 
                     start = start + timedelta(days=1)
                     end = end + timedelta(days=1)
@@ -178,26 +180,27 @@ class SoundViewSet(viewsets.ModelViewSet):
             if not sound_serializer.is_valid():
                 return Response(sound_serializer.errors)
 
-            try:
-                sound_detail_serializer = SoundDetailSerializer(data=json.loads(request.data['sound']))
-            except ValueError:
-                raise ValidationError('JSON parse error', 400)
-
-            if not sound_detail_serializer.is_valid():
-                return Response(sound_detail_serializer.errors)
+            json_data = dict(request.data)
 
             # TODO 実際に受け取ったbase64をデコードして保存してみる
             # f = open('tmp/sample.mp4', 'rb')
             # encoded = base64.b64encode(f.read())
             # f.close()
 
-            json_data = json.loads(request.data['sound'])
+            now = datetime.now()
+            now_str = now.strftime('%Y-%m-%d %H:%M:%S')
 
-            f = open('tmp/'+json_data['filename'], 'wb')
-            f.write(base64.b64decode(json_data['file_data']))
+            filename = 'tmp/' + json_data['user_id'][0] + '_' + now_str + '.mp4'
+
+            try:
+                f = open(filename, 'wb')
+            except ValidationError:
+                raise ValidationError(404)
+
+            f.write(base64.b64decode(json_data['file_data'][0]))
             f.close()
 
-            return Response('OK')
+            return Response(filename)
 
     def get_queryset(self):
-        pass
+        return User.objects.get(id=self.request.data['user_id'])

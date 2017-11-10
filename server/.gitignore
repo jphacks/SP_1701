@@ -159,4 +159,4 @@ server/settings.py
 .idea/
 db.sqlite3
 
-*.mp4
+tmp/

@@ -11,6 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var recLabel: UILabel!
     
     var audioRecorder: AVAudioRecorder?
     
@@ -86,8 +87,10 @@ class ViewController: UIViewController {
         if (audioRecorder?.isRecording)! {
             audioRecorder?.stop()
             convertFile(fileURL: recordingURL! as URL)
+            recLabel.text = "Rec"
         }else{
             audioRecorder?.record()
+            recLabel.text = "Rec"
         }
     }
     

@@ -12,7 +12,8 @@ import AVFoundation
 class ViewController: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var recLabel: UILabel!
-
+    @IBOutlet weak var recImg: UIImageView!
+    
     var powerLevel: PowerLevel?
 
     override func viewDidLoad() {
@@ -31,8 +32,10 @@ class ViewController: UIViewController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if(change![.newKey]! as! Bool){  //ture
             recLabel.text = "Rec"
+            recImg.image = UIImage(named: "mic1.png")!
         }else{
             recLabel.text = ""
+            recImg.image = UIImage(named: "mic0.png")!
         }
     }
     

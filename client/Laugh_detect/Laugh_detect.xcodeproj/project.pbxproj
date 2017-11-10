@@ -19,6 +19,8 @@
 		7CDB340B1FB5F14E00560A9B /* FileConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB340A1FB5F14E00560A9B /* FileConverter.swift */; };
 		7CDB340D1FB5FC8500560A9B /* AudioRecoderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB340C1FB5FC8500560A9B /* AudioRecoderManager.swift */; };
 		7CDB340F1FB6010300560A9B /* FilePathManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB340E1FB6010300560A9B /* FilePathManager.swift */; };
+		7CDB34121FB6395800560A9B /* mic0.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDB34111FB6395800560A9B /* mic0.png */; };
+		7CDB34141FB6396500560A9B /* mic1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDB34131FB6396500560A9B /* mic1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		7CDB340A1FB5F14E00560A9B /* FileConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileConverter.swift; sourceTree = "<group>"; };
 		7CDB340C1FB5FC8500560A9B /* AudioRecoderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecoderManager.swift; sourceTree = "<group>"; };
 		7CDB340E1FB6010300560A9B /* FilePathManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePathManager.swift; sourceTree = "<group>"; };
+		7CDB34111FB6395800560A9B /* mic0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mic0.png; sourceTree = "<group>"; };
+		7CDB34131FB6396500560A9B /* mic1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mic1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,7 @@
 		7C10DD271FA2EFA600B30090 = {
 			isa = PBXGroup;
 			children = (
+				7CDB34101FB6393300560A9B /* img */,
 				7C10DD321FA2EFA600B30090 /* Laugh_detect */,
 				7C10DD471FA2EFA600B30090 /* Laugh_detectTests */,
 				7C10DD521FA2EFA600B30090 /* Laugh_detectUITests */,
@@ -138,6 +143,15 @@
 				7C10DD551FA2EFA600B30090 /* Info.plist */,
 			);
 			path = Laugh_detectUITests;
+			sourceTree = "<group>";
+		};
+		7CDB34101FB6393300560A9B /* img */ = {
+			isa = PBXGroup;
+			children = (
+				7CDB34111FB6395800560A9B /* mic0.png */,
+				7CDB34131FB6396500560A9B /* mic1.png */,
+			);
+			path = img;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +261,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CDB34121FB6395800560A9B /* mic0.png in Resources */,
+				7CDB34141FB6396500560A9B /* mic1.png in Resources */,
 				7C10DD3E1FA2EFA600B30090 /* LaunchScreen.storyboard in Resources */,
 				7C10DD3B1FA2EFA600B30090 /* Assets.xcassets in Resources */,
 				7C10DD391FA2EFA600B30090 /* Main.storyboard in Resources */,

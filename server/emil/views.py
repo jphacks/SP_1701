@@ -187,15 +187,17 @@ class SoundViewSet(viewsets.ModelViewSet):
                 return Response(sound_detail_serializer.errors)
 
             # TODO 実際に受け取ったbase64をデコードして保存してみる
-            f = open('tmp/sample.mp4', 'rb')
-            encoded = base64.b64encode(f.read())
+            # f = open('tmp/sample.mp4', 'rb')
+            # encoded = base64.b64encode(f.read())
+            # f.close()
+
+            json_data = json.loads(request.data['sound'])
+
+            f = open('tmp/'+json_data['filename'], 'wb')
+            f.write(base64.b64decode(json_data['file_data']))
             f.close()
 
-            f = open('tmp/sample_copy.mp4', 'wb')
-            f.write(base64.b64decode(encoded))
-            f.close()
-
-            return Response(json.loads(request.data['sound']))
+            return Response('OK')
 
     def get_queryset(self):
         pass

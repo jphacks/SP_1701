@@ -18,13 +18,10 @@ class ViewController: UIViewController {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    var segment_number = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //viewを定義
-        let graphview = Graph(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
-        graphview.backgroundColor = UIColor.white
-        view.addSubview(graphview)
         
         //スマイレージ
         let point = appDelegate.total_smileage
@@ -35,6 +32,12 @@ class ViewController: UIViewController {
         let image = UIImage(named: "smileage.png")
         // Image Viewに画像を設定
         smileage.image = image
+        
+        //viewを定義
+        let graphview = Graph(frame : CGRect(x: 30,y: 240,width: 300,height: 330))
+        graphview.backgroundColor = UIColor.white
+        view.addSubview(graphview)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,19 +59,34 @@ class ViewController: UIViewController {
     
     //グラフを表示
     class Graph: UIView {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         override func draw(_ rect: CGRect) {
-            
-            let json = callAPI(name: "laughs", params:["1","2017","11","12"])
-            let each_day_points = json["weekly"]
-            print(each_day_points)
-            
-            for i in 0..<7 {
-                let point = each_day_points[i].intValue //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point/3, width: 30, height: point/3), cornerRadius: 0)
-                
-                UIColor.orange.setFill() // 色をセット
-                path.fill()
-                
+            if appDelegate.segment_number == 0 {
+                print("おう")
+                for i in 0..<7 {
+                    let point = appDelegate.this_week_total["weekly"][i].intValue //笑った回数分のポイント
+                    let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point/3, width: 30, height: point/3), cornerRadius: 0)
+                    
+                    UIColor.orange.setFill() // 色をセット
+                    path.fill()
+                }
+            }else if appDelegate.segment_number == 1 {
+                print("いえい")
+                for i in 0..<7 {
+                    let point = appDelegate.last_week_total["weekly"][i].intValue //笑った回数分のポイント
+                    let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point/3, width: 30, height: point/3), cornerRadius: 0)
+                    
+                    UIColor.orange.setFill() // 色をセット
+                    path.fill()
+                }
+            } else if appDelegate.segment_number == 2 {
+                for i in 0..<7 {
+                    let point = appDelegate.last2_week_total["weekly"][i].intValue //笑った回数分のポイント
+                    let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point/3, width: 30, height: point/3), cornerRadius: 0)
+                    
+                    UIColor.orange.setFill() // 色をセット
+                    path.fill()
+                }
             }
         }
     }
@@ -109,6 +127,28 @@ class ViewController: UIViewController {
         view.addSubview(graphview)
         
         week.text = "11月12日から一週間分のスマイレージ"
+    }
+    
+    @IBAction func changeWeek(_ sender: Any) {
+        switch (sender as AnyObject).selectedSegmentIndex {
+        case 0:
+            appDelegate.segment_number = 0
+            let graphview = Graph(frame : CGRect(x: 30,y: 240,width: 300,height: 330))
+            graphview.backgroundColor = UIColor.white
+            view.addSubview(graphview)
+        case 1:
+            appDelegate.segment_number = 1
+            let graphview = Graph(frame : CGRect(x: 30,y: 240,width: 300,height: 330))
+            graphview.backgroundColor = UIColor.white
+            view.addSubview(graphview)
+        case 2:
+            appDelegate.segment_number = 2
+            let graphview = Graph(frame : CGRect(x: 30,y: 240,width: 300,height: 330))
+            graphview.backgroundColor = UIColor.white
+            view.addSubview(graphview)
+        default:
+            break
+        }
     }
 }
 

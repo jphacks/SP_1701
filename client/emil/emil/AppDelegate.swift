@@ -27,6 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var last_week:JSON = ""
     var last2_week:JSON = ""
     
+    var this_week_total:JSON = ""
+    var last_week_total:JSON = ""
+    var last2_week_total:JSON = ""
+    
+    var segment_number = 0 //グラフで使うセグメントボタンの番号
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         let json = callAPI(name: "users", params:["1"])
@@ -34,10 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         used_smilegae = json["used"].intValue
         total_smileage = available_smileage + used_smilegae
         
-        this_week = callAPI(name: "laughs/detail", params:["1","2017","11","12"])
-        last_week = callAPI(name: "laughs/detail", params:["1","2017","11","05"])
-        last2_week = callAPI(name: "laughs/detail", params:["1","2017","10","29"])
+//        this_week = callAPI(name: "laughs/detail", params:["1","2017","11","12"])
+//        last_week = callAPI(name: "laughs/detail", params:["1","2017","11","05"])
+//        last2_week = callAPI(name: "laughs/detail", params:["1","2017","10","29"])
         
+        this_week_total = callAPI(name: "laughs", params:["1","2017","11","12"])
+        last_week_total = callAPI(name: "laughs", params:["1","2017","11","05"])
+        last2_week_total = callAPI(name: "laughs", params:["1","2017","10","29"])
+
         return true
     }
     

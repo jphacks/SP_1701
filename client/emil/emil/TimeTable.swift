@@ -13,7 +13,6 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     @IBOutlet weak var total_smile: UILabel!
     @IBOutlet weak var timetabelColelctionView: UICollectionView!
-    @IBOutlet weak var segment_week: UISegmentedControl!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     

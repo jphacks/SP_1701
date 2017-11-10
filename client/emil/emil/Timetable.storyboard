@@ -81,7 +81,6 @@
                         <viewLayoutGuide key="safeArea" id="acE-an-cPZ"/>
                     </view>
                     <connections>
-                        <outlet property="segment_week" destination="jOC-J9-0Fd" id="dHu-d7-UQQ"/>
                         <outlet property="timetabelColelctionView" destination="sss-on-K1f" id="q8r-Ah-gPQ"/>
                         <outlet property="total_smile" destination="Qv4-Cp-it6" id="xPJ-Ss-A9p"/>
                     </connections>

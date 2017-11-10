@@ -9,6 +9,7 @@
 import AVFoundation
 
 final class PowerLevel: NSObject {
+    let recBorderLevel:Float = -5.0
     private let captureSession_ = AVCaptureSession()
 
 //    private let serialQueue_ = DispatchQueue(label: "PowerLevel.serialqueue.audio")
@@ -51,7 +52,7 @@ extension PowerLevel: AVCaptureAudioDataOutputSampleBufferDelegate {
         if !audioChannels.isEmpty {
             let peakHoldLevel = audioChannels.reduce(0.0){ $0 + $1.peakHoldLevel }
                 / Float(audioChannels.count)
-            if(peakHoldLevel > -5.0){
+            if(peakHoldLevel > recBorderLevel){
                 //print("\(peakHoldLevel)")
                 if(!(AudioRecoderManager.shared.audioRecorder?.isRecording)!){
                     AudioRecoderManager.shared.audioRecorder?.record()

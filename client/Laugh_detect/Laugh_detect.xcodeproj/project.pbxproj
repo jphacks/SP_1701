@@ -16,6 +16,7 @@
 		7C10DD541FA2EFA600B30090 /* Laugh_detectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C10DD531FA2EFA600B30090 /* Laugh_detectUITests.swift */; };
 		7CDB34071FB5560600560A9B /* PowerLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB34061FB5560600560A9B /* PowerLevel.swift */; };
 		7CDB34091FB5F02C00560A9B /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB34081FB5F02C00560A9B /* FileUploader.swift */; };
+		7CDB340B1FB5F14E00560A9B /* FileConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB340A1FB5F14E00560A9B /* FileConverter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		7C10DD551FA2EFA600B30090 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CDB34061FB5560600560A9B /* PowerLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerLevel.swift; sourceTree = "<group>"; };
 		7CDB34081FB5F02C00560A9B /* FileUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploader.swift; sourceTree = "<group>"; };
+		7CDB340A1FB5F14E00560A9B /* FileConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				7C10DD331FA2EFA600B30090 /* AppDelegate.swift */,
 				7C10DD351FA2EFA600B30090 /* ViewController.swift */,
+				7CDB340A1FB5F14E00560A9B /* FileConverter.swift */,
 				7CDB34081FB5F02C00560A9B /* FileUploader.swift */,
 				7CDB34061FB5560600560A9B /* PowerLevel.swift */,
 				7C10DD371FA2EFA600B30090 /* Main.storyboard */,
@@ -269,6 +272,7 @@
 				7CDB34091FB5F02C00560A9B /* FileUploader.swift in Sources */,
 				7C10DD341FA2EFA600B30090 /* AppDelegate.swift in Sources */,
 				7CDB34071FB5560600560A9B /* PowerLevel.swift in Sources */,
+				7CDB340B1FB5F14E00560A9B /* FileConverter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

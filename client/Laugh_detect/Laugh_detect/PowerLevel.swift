@@ -11,7 +11,8 @@ import AVFoundation
 final class PowerLevel: NSObject {
     private let captureSession_ = AVCaptureSession()
 
-    private let serialQueue_ = DispatchQueue(label: "PowerLevel.serialqueue.audio")
+//    private let serialQueue_ = DispatchQueue(label: "PowerLevel.serialqueue.audio")
+    private let serialQueue_ = DispatchQueue.main
     override init() {
         super.init()
         setupCaptureRoute()
@@ -40,9 +41,9 @@ final class PowerLevel: NSObject {
 
 // デリゲートメソッドの用意
 extension PowerLevel: AVCaptureAudioDataOutputSampleBufferDelegate {
-    func captureOutput(captureOutput: AVCaptureOutput!,
-                       didOutputSampleBuffer sampleBuffer: CMSampleBuffer!,
-                       fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput,
+                       didOutput sampleBuffer: CMSampleBuffer,
+                       from connection: AVCaptureConnection) {
         
         // キャプチャコネクションからオーディオチャンネルを取得し、パワーレベル(dB)を入手
         let audioChannels = connection.audioChannels.filter{ $0 is AVCaptureAudioChannel }

@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var dirURL: NSURL?
     var recordingURL: NSURL?
     let fileName = "recording.caf"
-    //var obj: PowerLevel?
+    var obj: PowerLevel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,8 @@ class ViewController: UIViewController {
         
         self.setupAudioRecorder()
         
-        //obj = PowerLevel()
+        obj = PowerLevel()
+        obj?.start()
         
     }
 
@@ -85,10 +86,8 @@ class ViewController: UIViewController {
         if (audioRecorder?.isRecording)! {
             audioRecorder?.stop()
             convertFile(fileURL: recordingURL! as URL)
-            //obj?.stop()
         }else{
             audioRecorder?.record()
-            //obj?.start()
         }
     }
     

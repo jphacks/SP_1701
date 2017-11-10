@@ -40,9 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         used_smilegae = json["used"].intValue
         total_smileage = available_smileage + used_smilegae
         
-//        this_week = callAPI(name: "laughs/detail", params:["1","2017","11","12"])
-//        last_week = callAPI(name: "laughs/detail", params:["1","2017","11","05"])
-//        last2_week = callAPI(name: "laughs/detail", params:["1","2017","10","29"])
+        this_week = callAPI(name: "laughs/detail", params:["1","2017","11","12"])
+        last_week = callAPI(name: "laughs/detail", params:["1","2017","11","05"])
+        last2_week = callAPI(name: "laughs/detail", params:["1","2017","10","29"])
         
         this_week_total = callAPI(name: "laughs", params:["1","2017","11","12"])
         last_week_total = callAPI(name: "laughs", params:["1","2017","11","05"])

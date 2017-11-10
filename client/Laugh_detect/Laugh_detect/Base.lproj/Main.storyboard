@@ -18,9 +18,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDM-Iu-d0v">
-                                <rect key="frame" x="164" y="146" width="46" height="30"/>
+                                <rect key="frame" x="0.0" y="2" width="375" height="657"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="startRecordButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PH7-2f-idg"/>
                                 </connections>
@@ -32,6 +31,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="106.59670164917542"/>
         </scene>
     </scenes>
 </document>

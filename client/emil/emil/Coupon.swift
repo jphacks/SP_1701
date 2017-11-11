@@ -83,7 +83,7 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
              超えていた場合を検知してアラートを出す。超えていない場合は消費できる。
              */
             if self.ta > self.appDelegate.coupon_data[indexPath.row].smileage{
-                self.t = self.ta - self.appDelegate.coupon_data[indexPath.row].smileage
+                self.t = self.t - self.appDelegate.coupon_data[indexPath.row].smileage
                 self.ta = self.t
                 
                 self.Total.text = String(self.t)

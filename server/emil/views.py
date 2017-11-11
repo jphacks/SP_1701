@@ -1,4 +1,4 @@
-import json
+import os
 import base64
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
@@ -6,6 +6,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from datetime import timedelta
 from .serializer import *
+
 
 
 class UsersViewSet(viewsets.ModelViewSet):
@@ -183,25 +184,32 @@ class SoundViewSet(viewsets.ModelViewSet):
             json_data = dict(request.data)
 
             # TODO 実際に受け取ったbase64をデコードして保存してみる
+
+            # print(type(json_data['file_data']))
             # f = open('tmp/recording1.caf', 'rb')
             # encoded = base64.b64encode(f.read())
             # f.close()
 
-            # パッティングして規定に合わせる
-            encoded = json_data['file_data'][0]
+            encoded = json_data['file_data']
+
+            # 規定に合わせるために=で埋め合わせ
             missing_padding = len(encoded) % 4
             if missing_padding != 0:
-                encoded += b'=' * (4 - len(encoded) % 4)
+                encoded += '=' * (4 - len(encoded) % 4)
 
             now = datetime.now()
             now_str = now.strftime('%Y-%m-%d %H:%M:%S')
 
-            filename_base = 'tmp/' + json_data['user_id'][0] + '_' + now_str
-            filename_caf = filename_base + '.caf'
+            filename_caf = 'tmp/' + json_data['user_id'][0] + '_' + now_str + '.caf'
 
             f = open(filename_caf, 'wb')
-            f.write(base64.b64decode(encoded))
-            f.close()
+
+            try:
+                f.write(base64.b64decode(encoded))
+                f.close()
+            except ValueError:
+                os.remove(filename_caf)
+                raise ValueError(500)
 
             return Response(filename_caf)
 

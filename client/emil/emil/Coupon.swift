@@ -52,21 +52,7 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = Coupon.dequeueReusableCell(withIdentifier: "CustomCellTableViewCell", for: indexPath) as! CustomCellTableViewCell
         cell.gift.text = appDelegate.coupon_data[indexPath.row].gift
         cell.smileage.text = String(appDelegate.coupon_data[indexPath.row].smileage)
-        
-        /***** セルに表示する画像の宣言 *****/
-        if let path: String = Bundle.main.path(forResource: "check", ofType: "png") {
-            cell.couponImg.image = UIImage(contentsOfFile: path)
-        }else {
-            print("指定されたファイルが見つかりません")
-        }
-        
-        if let path: String = Bundle.main.path(forResource: "smileage", ofType: "png") {
-            cell.logo.image = UIImage(contentsOfFile: path)
-        }else {
-            print("指定されたファイルが見つかりません")
-        }
-        /***** ここまでセルに表示する画像の宣言 *****/
-        
+                
         return cell
     }
     
@@ -92,8 +78,11 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             (action: UIAlertAction!) -> Void in
             
+            /*
+             クーポンを利用して、必要なスマイレージが使用可能なスマイレージを
+             超えていた場合を検知してアラートを出す。超えていない場合は消費できる。
+             */
             if self.ta > self.appDelegate.coupon_data[indexPath.row].smileage{
-                print("OK")
                 self.t = self.ta - self.appDelegate.coupon_data[indexPath.row].smileage
                 self.ta = self.t
                 
@@ -104,7 +93,6 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let err_alert: UIAlertController = UIAlertController(title: "エラー", message: "スマイレージが足りません", preferredStyle:  UIAlertControllerStyle.alert)
 
                 let ok = UIAlertAction(title: "OK", style: .default) { action in
-                    print("Action OK!!")
                 }
                 
                 err_alert.addAction(ok)

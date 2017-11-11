@@ -33,12 +33,12 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         shadow.layer.shadowRadius = 5 // ぼかし量
         
         /* 画面下部の新規追加ボタンの設定 */
-        AddCouponBtn.backgroundColor = UIColor.orange4()
-        AddCouponBtn.layer.borderWidth = 2.0
-        //        AddCouponBtn.layer.borderColor = UIColor.red.cgColor
-        AddCouponBtn.layer.cornerRadius = 10.0
-        AddCouponBtn.setTitleColor(UIColor.white,for: UIControlState.normal)
-        AddCouponBtn.layer.masksToBounds = true
+//        AddCouponBtn.backgroundColor = UIColor.orange4()
+//        AddCouponBtn.layer.borderWidth = 2.0
+//        //        AddCouponBtn.layer.borderColor = UIColor.red.cgColor
+//        AddCouponBtn.layer.cornerRadius = 10.0
+//        AddCouponBtn.setTitleColor(UIColor.white,for: UIControlState.normal)
+//        AddCouponBtn.layer.masksToBounds = true
         
         Coupon.delegate = self
         Coupon.dataSource = self

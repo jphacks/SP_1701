@@ -9,12 +9,10 @@
 /* Begin PBXBuildFile section */
 		058B621F70AD52C3D593CB36 /* Pods_emilUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23024D6660DF1D98F6F527B /* Pods_emilUITests.framework */; };
 		3B09241A1FB32577000ED22E /* ColorSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0924191FB32577000ED22E /* ColorSetting.swift */; };
-		3B09242B1FB69397000ED22E /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0924251FB69394000ED22E /* appicon.png */; };
 		3B09242C1FB69397000ED22E /* button2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0924261FB69395000ED22E /* button2.png */; };
 		3B09242D1FB69397000ED22E /* button_plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0924271FB69395000ED22E /* button_plus.png */; };
-		3B09242E1FB69397000ED22E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0924281FB69396000ED22E /* Default.png */; };
-		3B09242F1FB69397000ED22E /* appicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B0924291FB69396000ED22E /* appicon@2x.png */; };
 		3B0924301FB69397000ED22E /* button1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B09242A1FB69396000ED22E /* button1.png */; };
+		3B0924341FB715E1000ED22E /* icon in Resources */ = {isa = PBXBuildFile; fileRef = 3B0924331FB715E1000ED22E /* icon */; };
 		3B1FEB501FA2F85E007E1977 /* Coupon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B1FEB4F1FA2F85E007E1977 /* Coupon.storyboard */; };
 		3B1FEB541FA2F8BF007E1977 /* EditCoupon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B1FEB531FA2F8BF007E1977 /* EditCoupon.storyboard */; };
 		3B1FEB561FA2FAE5007E1977 /* Timetable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B1FEB551FA2FAE5007E1977 /* Timetable.storyboard */; };
@@ -58,12 +56,10 @@
 /* Begin PBXFileReference section */
 		07C4C66E363A3DD00D660669 /* Pods-emil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-emil.release.xcconfig"; path = "Pods/Target Support Files/Pods-emil/Pods-emil.release.xcconfig"; sourceTree = "<group>"; };
 		3B0924191FB32577000ED22E /* ColorSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSetting.swift; sourceTree = "<group>"; };
-		3B0924251FB69394000ED22E /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
 		3B0924261FB69395000ED22E /* button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button2.png; sourceTree = "<group>"; };
 		3B0924271FB69395000ED22E /* button_plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_plus.png; sourceTree = "<group>"; };
-		3B0924281FB69396000ED22E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		3B0924291FB69396000ED22E /* appicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon@2x.png"; sourceTree = "<group>"; };
 		3B09242A1FB69396000ED22E /* button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button1.png; sourceTree = "<group>"; };
+		3B0924331FB715E1000ED22E /* icon */ = {isa = PBXFileReference; lastKnownFileType = folder; path = icon; sourceTree = "<group>"; };
 		3B1FEB4F1FA2F85E007E1977 /* Coupon.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Coupon.storyboard; sourceTree = "<group>"; };
 		3B1FEB531FA2F8BF007E1977 /* EditCoupon.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCoupon.storyboard; sourceTree = "<group>"; };
 		3B1FEB551FA2FAE5007E1977 /* Timetable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timetable.storyboard; sourceTree = "<group>"; };
@@ -178,12 +174,10 @@
 				3B3F1AC61FA4F1C9007A73C4 /* EditCoupon.swift */,
 				7C10DD001FA2ED9900B30090 /* Assets.xcassets */,
 				7C10DD021FA2ED9900B30090 /* LaunchScreen.storyboard */,
-				3B0924251FB69394000ED22E /* appicon.png */,
-				3B0924291FB69396000ED22E /* appicon@2x.png */,
+				3B0924331FB715E1000ED22E /* icon */,
 				3B0924271FB69395000ED22E /* button_plus.png */,
 				3B09242A1FB69396000ED22E /* button1.png */,
 				3B0924261FB69395000ED22E /* button2.png */,
-				3B0924281FB69396000ED22E /* Default.png */,
 				3B3F1ACF1FA56E08007A73C4 /* check.png */,
 				3B3F1AD01FA56E09007A73C4 /* smileage.png */,
 				7C10DD051FA2ED9900B30090 /* Info.plist */,
@@ -339,9 +333,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B09242C1FB69397000ED22E /* button2.png in Resources */,
-				3B09242B1FB69397000ED22E /* appicon.png in Resources */,
-				3B09242E1FB69397000ED22E /* Default.png in Resources */,
-				3B09242F1FB69397000ED22E /* appicon@2x.png in Resources */,
 				3B3F1AD11FA56E19007A73C4 /* check.png in Resources */,
 				3B3F1AD21FA56E19007A73C4 /* smileage.png in Resources */,
 				3B1FEB541FA2F8BF007E1977 /* EditCoupon.storyboard in Resources */,
@@ -351,6 +342,7 @@
 				7C10DD011FA2ED9900B30090 /* Assets.xcassets in Resources */,
 				3B1FEB561FA2FAE5007E1977 /* Timetable.storyboard in Resources */,
 				3B09242D1FB69397000ED22E /* button_plus.png in Resources */,
+				3B0924341FB715E1000ED22E /* icon in Resources */,
 				3B3F1AC21FA4C7FD007A73C4 /* CustomCellTableViewCell.xib in Resources */,
 				7C10DCFF1FA2ED9900B30090 /* Main.storyboard in Resources */,
 			);

@@ -8,7 +8,6 @@ from datetime import timedelta
 from .serializer import *
 
 
-
 class UsersViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
     serializer_class = UserSerializer
@@ -182,14 +181,6 @@ class SoundViewSet(viewsets.ModelViewSet):
                 return Response(sound_serializer.errors)
 
             json_data = dict(request.data)
-
-            # TODO 実際に受け取ったbase64をデコードして保存してみる
-
-            # print(type(json_data['file_data']))
-            # f = open('tmp/recording1.caf', 'rb')
-            # encoded = base64.b64encode(f.read())
-            # f.close()
-
             encoded = json_data['file_data']
 
             # 規定に合わせるために=で埋め合わせ

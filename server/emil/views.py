@@ -1,3 +1,5 @@
+import os
+import base64
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
@@ -14,35 +16,15 @@ class UsersViewSet(viewsets.ModelViewSet):
         try:
             user = self.get_queryset()
         except ObjectDoesNotExist:
-                raise ValidationError(404)
+            raise ValidationError(404)
 
         return Response({
             'available': user.available_smileage,
             'used': user.used_smileage
-            })
+        })
 
     def get_queryset(self):
         return User.objects.get(id=self.kwargs.get('user_id'))
-
-
-# class PostCafViewSet(viewsets.ViewSet):
-#
-#     @staticmethod
-#     def create(request):
-#         if request.method == 'POST':
-#             serializer = PostCafSerializer(data=request.data)
-#
-#             if serializer.is_valid():
-#                 serializer = SoundSerializer(data=json.loads(request.data['sound']))
-#
-#                 if serializer.is_valid():
-#                     return Response({'result': 'OK'})
-#                 else:
-#                     return Response(serializer.errors)
-#             else:
-#                 return Response(serializer.errors)
-#         else:
-#             return Response('Not Allow GET method')
 
 
 class LaughsViewSet(viewsets.ModelViewSet):
@@ -91,7 +73,8 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
 
         if serializer.is_valid():
 
-            weekday = datetime.strptime(kwargs.get('year') + '/' + kwargs.get('month') + '/' + kwargs.get('day'), '%Y/%m/%d').weekday()
+            weekday = datetime.strptime(kwargs.get('year') + '/' + kwargs.get('month') + '/' + kwargs.get('day'),
+                                        '%Y/%m/%d').weekday()
 
             # 指定された日付が日曜日かをチェック
             if weekday != 6:
@@ -142,7 +125,8 @@ class LaughsDetailViewSet(viewsets.ModelViewSet):
                     # print(start, end, laughs.filter(created_at__range=(start, end)).count())
 
                     # 1コマに笑った回数を記録
-                    day_laughs_by_one_class.append(laughs.filter(created_at__range=(start+timedelta(hours=9), end+timedelta(hours=9))).count())
+                    day_laughs_by_one_class.append(
+                        laughs.filter(created_at__range=(start + timedelta(hours=9), end + timedelta(hours=9))).count())
 
                     start = start + timedelta(days=1)
                     end = end + timedelta(days=1)
@@ -183,3 +167,42 @@ class LaughViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return User.objects.get(random_id=self.request.data['user_id'])
+
+
+class SoundViewSet(viewsets.ModelViewSet):
+    http_method_names = ['post']
+    serializer_class = SoundSerializer
+
+    def create(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            sound_serializer = SoundSerializer(data=request.data)
+
+            if not sound_serializer.is_valid():
+                return Response(sound_serializer.errors)
+
+            json_data = dict(request.data)
+            encoded = json_data['file_data']
+
+            # 規定に合わせるために=で埋め合わせ
+            missing_padding = len(encoded) % 4
+            if missing_padding != 0:
+                encoded += '=' * (4 - len(encoded) % 4)
+
+            now = datetime.now()
+            now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+
+            filename_caf = 'tmp/' + json_data['user_id'][0] + '_' + now_str + '.caf'
+
+            f = open(filename_caf, 'wb')
+
+            try:
+                f.write(base64.b64decode(encoded))
+                f.close()
+            except ValueError:
+                os.remove(filename_caf)
+                raise ValueError(500)
+
+            return Response(filename_caf)
+
+    def get_queryset(self):
+        return User.objects.get(id=self.request.data['user_id'])

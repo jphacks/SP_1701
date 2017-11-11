@@ -87,6 +87,7 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.ta = self.t
                 
                 self.Total.text = String(self.t)
+                self.appDelegate.available_smileage = self.t
                 self.appDelegate.coupon_data.remove(at: indexPath.row)
                 self.Coupon.reloadData()
             } else {

@@ -7,39 +7,14 @@
 //
 
 import UIKit
-
-extension UIColor {
-    class func lightBlue() -> UIColor {
-        return UIColor(red: 92.0 / 255, green: 192.0 / 255, blue: 210.0 / 255, alpha: 1.0)
-    }
-    
-    class func lightRed() -> UIColor {
-        return UIColor(red: 195.0 / 255, green: 123.0 / 255, blue: 175.0 / 255, alpha: 1.0)
-    }
-    
-    class func hex ( hexStr : NSString, alpha : CGFloat) -> UIColor {
-        var alpha = alpha
-        var hexStr = hexStr
-        hexStr = hexStr.replacingOccurrences(of: "#", with: "") as NSString
-        let scanner = Scanner(string: hexStr as String)
-        var color: UInt32 = 0
-        if scanner.scanHexInt32(&color) {
-            let r = CGFloat((color & 0xFF0000) >> 16) / 255.0
-            let g = CGFloat((color & 0x00FF00) >> 8) / 255.0
-            let b = CGFloat(color & 0x0000FF) / 255.0
-            return UIColor(red:r,green:g,blue:b,alpha:alpha)
-        } else {
-            print("不正な値だよ")
-            return UIColor.white
-        }
-    }
-}
+import SwiftyJSON
 
 class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     @IBOutlet weak var total_smile: UILabel!
-    
     @IBOutlet weak var timetabelColelctionView: UICollectionView!
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var weekArray = ["","日", "月", "火", "水", "木", "金", "土",
                      "1", "", "", "", "", "", "", "",
@@ -51,21 +26,22 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
                      "5", "", "", "", "", "", "", "",
                      "6", "", "", "", "", "", "", "",
                      "放", "", "", "", "", "", "", ""]
-    var titles: [String] = [ "F7C594", "E4740E", "FFFFFF"]
     
     let cellMargin: CGFloat = 0.0 //マージン
     
-    var comment = ""
-//    let linePoint: CGFloat = 5     // 罫線の太さ
-//    let numberOfCols: CGFloat = 7  // 1行に表示するセルの数
+    var segment_number = 0
+    
+    var skip_number: Int = 0
+
+    //    let linePoint: CGFloat = 5     // 罫線の太さ
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        total_smile.text = "18594"
+        total_smile.text = String(appDelegate.total_smileage)
         timetabelColelctionView.delegate = self
         timetabelColelctionView.dataSource = self
-//        timetabelColelctionView.backgroundColor = UIColor.black
-        
+        //        timetabelColelctionView.backgroundColor = UIColor.black
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -90,33 +66,33 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         }
     }
     //3
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath) as! CalendarCell
-//        cell.textLabel.backgroundColor = UIColor.white
-//        //テキストカラー
-//        if (indexPath.row % 7 == 0) {
-//            cell.textLabel.textColor = UIColor.red
-//        } else if (indexPath.row % 7 == 6) {
-//            cell.textLabel.textColor = UIColor.blue
-//        } else {
-//            cell.textLabel.textColor = UIColor.gray
-//        }
-//        //テキスト配置
-//        if indexPath.section == 0 {
-//            cell.textLabel.text = weekArray[indexPath.row]
-//        } else {
-//            cell.textLabel.text = leaves[indexPath.row]
-//            //月によって1日の場所は異なる(後ほど説明します)
-//        }
-//
-//        return cell
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath) as! CalendarCell
+    //        cell.textLabel.backgroundColor = UIColor.white
+    //        //テキストカラー
+    //        if (indexPath.row % 7 == 0) {
+    //            cell.textLabel.textColor = UIColor.red
+    //        } else if (indexPath.row % 7 == 6) {
+    //            cell.textLabel.textColor = UIColor.blue
+    //        } else {
+    //            cell.textLabel.textColor = UIColor.gray
+    //        }
+    //        //テキスト配置
+    //        if indexPath.section == 0 {
+    //            cell.textLabel.text = weekArray[indexPath.row]
+    //        } else {
+    //            cell.textLabel.text = leaves[indexPath.row]
+    //            //月によって1日の場所は異なる(後ほど説明します)
+    //        }
+    //
+    //        return cell
+    //    }
     
     //セルのサイズを設定
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = floor((collectionView.frame.size.width - (1*(8-1))) / 8)
         return CGSize(width:size, height:size)
-
+        
     }
     
     //セルの垂直方向のマージンを設定
@@ -129,13 +105,13 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         return cellMargin
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
-//    }
-//
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-//        return 1
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    //        return UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+    //    }
+    //
+    //    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    //        return 1
+    //    }
     
     /*
      Cellが選択された際に呼び出される
@@ -154,39 +130,22 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
         let cell : CalendarCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath) as! CalendarCell
         
-        switch(indexPath.section){
-        case 0:
+        cell.backgroundColor = UIColor.white
+        
+        if segment_number == 0 {
+            drow_background_cell(data: appDelegate.this_week, cell: cell, indexPath: indexPath)
             
-            /*
-             * To Do
-             * index.rowの値に応じて色を変えるようにする
-             * 現状これはまずい
-             */
-            cell.backgroundColor = UIColor.white
-            if (indexPath.row > 7 && indexPath.row % 8 != 0) {
-                cell.backgroundColor = UIColor.hex(hexStr: "F7C594", alpha: 1)
-            }
-            if(indexPath.row % 7 == 0 && indexPath.row & 8 != 7){
-                cell.backgroundColor = UIColor.hex(hexStr: "FFFFFF", alpha: 1)
-                
-            }
-            if(indexPath.row == 17 || indexPath.row == 25 || indexPath.row == 53 || indexPath.row == 71 ||
-                indexPath.row == 41 || indexPath.row == 37 || indexPath.row == 34 || indexPath.row == 67 ) {
-                cell.backgroundColor = UIColor.hex(hexStr: "E4740E", alpha: 1)
-            }
-            if(indexPath.row == 18 || indexPath.row == 28 || indexPath.row == 75 || indexPath.row == 79 ||
-                indexPath.row == 44 || indexPath.row == 68 || indexPath.row == 13 || indexPath.row == 21 ||
-                indexPath.row == 50 || indexPath.row == 57 || indexPath.row == 17 || indexPath.row == 59) {
-                cell.backgroundColor = UIColor.hex(hexStr: "EE9540", alpha: 1)
-            }
-            cell.textLabel.text = weekArray[indexPath.row]
-
-        default:
-            print("section error")
-            cell.backgroundColor = UIColor.white
+        }else if segment_number == 1{
+            drow_background_cell(data: appDelegate.last_week, cell: cell, indexPath: indexPath)
+            
+        }else if segment_number == 2{
+            drow_background_cell(data: appDelegate.last2_week, cell: cell, indexPath: indexPath)
+            
         }
+        cell.textLabel.text = weekArray[indexPath.row]
         
         return cell
+        
     }
     
     /*
@@ -201,10 +160,63 @@ class TimeTable: UIViewController, UICollectionViewDataSource, UICollectionViewD
         return headerView
     }
     
+    /*
+     *
+     * セルごとに値を確認し、背景（芝生）の色を絵画する
+     */
+
+    func drow_background_cell(data: JSON, cell: CalendarCell, indexPath: IndexPath){
+        for i in 0...8 {
+            skip_number = 8*i + 9
+            for j in 0...6 {
+                if indexPath.row == skip_number {
+                    
+//                    print(indexPath.row)
+//                    print(skip_number)
+                    
+                    switch data[i][j].intValue {
+                    case 1...10:
+                        cell.backgroundColor = UIColor.orange0()
+                    case 11...20:
+                        cell.backgroundColor = UIColor.orange1()
+                    case 21...40:
+                        cell.backgroundColor = UIColor.orange2()
+                    case 41...60:
+                        cell.backgroundColor = UIColor.orange3()
+                    case 61...400:
+                        cell.backgroundColor = UIColor.orange4()
+                    case 0:
+                        cell.backgroundColor = UIColor.white
+                    default:
+                        print("どこかがおかしいです")
+                    }
+                }
+                skip_number = skip_number + 1
+            }
+        }
+    }
+    
     @IBAction func backToMain(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    /*
+     * セグメントボタンを押した時の処理
+     * どこかのボタンを押すたびにCollectionViewをリロードするようにする
+     */
+    @IBAction func segment_change(_ sender: Any) {
+        switch (sender as AnyObject).selectedSegmentIndex {
+        case 0:
+            segment_number = 0
+            self.timetabelColelctionView.reloadData()
+        case 1:
+            segment_number = 1
+            self.timetabelColelctionView.reloadData()
+        case 2:
+            segment_number = 2
+            self.timetabelColelctionView.reloadData()
+        default:
+            break
+        }
+    }
 }
-
-

@@ -8,39 +8,36 @@
 
 import UIKit
 import Foundation
-
+import SwiftyJSON
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var total_smile_point: UILabel!
     @IBOutlet weak var smileage: UIImageView!
     @IBOutlet weak var week: UILabel!
-    // API接続先
-    let urlStr = "http://kentaiwami.jp/pinkie/api/"
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var segment_number = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        //viewを定義
-        let graphview = Graph(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
-        graphview.backgroundColor = UIColor.white
-        view.addSubview(graphview)
-        
-        //スマイルポイント
-        let point=18594
-        
-        //スマイルポイントを表示
+        //スマイレージ
+        let point = appDelegate.total_smileage
         total_smile_point.text = "\(point)"
         
-        week.text = "10月22日~28日までのスマイレージ"
+        week.text = "11月12日から一週間分のスマイレージ"
         
-        // バンドルした画像ファイルを読み込み
         let image = UIImage(named: "smileage.png")
         // Image Viewに画像を設定
         smileage.image = image
         
-        callAPI(name: "asd")
+        //viewを定義
+        let graphview = Graph(frame : CGRect(x: 30,y: 240,width: 300,height: 330))
+        graphview.backgroundColor = UIColor.white
+        view.addSubview(graphview)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,6 +45,48 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //グラフを表示
+    class Graph: UIView {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        override func draw(_ rect: CGRect) {
+            
+            /*
+             セグメントボタンの選択箇所によってそれぞれのグラフを表示する
+             */
+            switch appDelegate.segment_number {
+            case 0:
+                drow_week_bar(data: appDelegate.this_week_total)
+            case 1:
+                drow_week_bar(data: appDelegate.last_week_total)
+            case 2:
+                drow_week_bar(data: appDelegate.last2_week_total)
+            default:
+                break
+            }
+        }
+        
+        /*
+         グラフの描画
+         */
+        func drow_week_bar(data:JSON){
+            for i in 0..<7 {
+                let point = data["weekly"][i].intValue //笑った回数分のポイント
+                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point/3, width: 30, height: point/3), cornerRadius: 0)
+                
+                UIColor.orange.setFill() // 色をセット
+                path.fill()
+            }
+        }
+    }
+    
+    /*
+     ビューにグラフを配置する
+     */
+    func setGraph() {
+        let graphview = Graph(frame : CGRect(x: 30,y: 240,width: 300,height: 330))
+        graphview.backgroundColor = UIColor.white
+        view.addSubview(graphview)
+    }
     
     @IBAction func moveTimeTable(_ sender: Any) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Timetable", bundle: nil)
@@ -61,83 +100,23 @@ class ViewController: UIViewController {
         present(next, animated: true, completion: nil)
     }
     
-    //グラフを表示
-    class Graph: UIView {
-        override func draw(_ rect: CGRect) {
-            
-            let count = [7, 8, 2, 5, 6, 4, 9]//笑った回数
-            
-            for i in 0..<7 {
-                let point = count[i]*40 //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point, width: 30, height: point), cornerRadius: 0)
-                
-                UIColor.orange.setFill() // 色をセット
-                path.fill()
-                
-            }
-            
+    @IBAction func changeWeek(_ sender: Any) {
+        switch (sender as AnyObject).selectedSegmentIndex {
+        case 0:
+            appDelegate.segment_number = 0
+            week.text = "11月12日から一週間分のスマイレージ"
+            setGraph()
+        case 1:
+            appDelegate.segment_number = 1
+            week.text = "11月05日から一週間分のスマイレージ"
+            setGraph()
+        case 2:
+            appDelegate.segment_number = 2
+            week.text = "10月29日から一週間分のスマイレージ"
+            setGraph()
+        default:
+            break
         }
     }
-    
-    //過去のグラフを表示（実際には上記のGraphで表示するようにする）
-    class Graph2: UIView {
-        override func draw(_ rect: CGRect) {
-            
-            let count = [1, 3, 5, 7, 6, 4, 5]//笑った回数
-            
-            for i in 0..<7 {
-                let point = count[i]*40 //笑った回数分のポイント
-                let path = UIBezierPath(roundedRect: CGRect(x: 20+i*40, y: 400-point, width: 30, height: point), cornerRadius: 0)
-                
-                UIColor.orange.setFill() // 色をセット
-                path.fill()
-                
-            }
-            
-        }
-    }
-    
-    //1つ前の過去のグラフを表示
-    @IBAction func beforeGraph(_ sender: Any) {
-        //viewを定義
-        let graphview = Graph2(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
-        graphview.backgroundColor = UIColor.white
-        view.addSubview(graphview)
-        
-        week.text = "10月15日~21日までのスマイレージ"
-    }
-    
-    //押すごとに最新のグラフを表示
-    @IBAction func advancegraph(_ sender: Any) {
-        //viewを定義
-        let graphview = Graph(frame : CGRect(x: 30,y: 180,width: 300,height: 400))
-        graphview.backgroundColor = UIColor.white
-        view.addSubview(graphview)
-        
-        week.text = "10月22日~28日までのスマイレージ"
-    }
-    
-    public func callAPI(name: String){
-        
-        let APIUrl = urlStr + "get_weekly_laugh"
-        if let url = URL(string: APIUrl) {
-            let req = NSMutableURLRequest(url: url)
-            req.httpMethod = "POST"
-            req.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            let task = URLSession.shared.dataTask(with: req as URLRequest, completionHandler: { (data, resp, err) in
-                // 受け取ったdataをJSONパース、エラーならcatchへジャンプ
-                do {
-                    var json = try JSONSerialization.jsonObject(with: data!, options:[]) as? Dictionary<String, String>
-                    print(json)
-                    
-                } catch {
-                    print ("json error")
-                    return
-                }
-            })
-            task.resume()
-        }
-    }
-    
 }
 

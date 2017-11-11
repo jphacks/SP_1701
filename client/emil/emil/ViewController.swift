@@ -118,5 +118,26 @@ class ViewController: UIViewController {
             break
         }
     }
+    
+    @IBAction func reload_data(_ sender: Any) {
+        let random = Int.random(min: 4, max: 24)
+        appDelegate.total_smileage = appDelegate.total_smileage + random
+        appDelegate.available_smileage = appDelegate.available_smileage + random
+        appDelegate.this_week_total["weekly"][0].intValue = appDelegate.this_week_total["weekly"][0].intValue + random
+        appDelegate.this_week[6][0].intValue = appDelegate.this_week[6][0].intValue + random
+        total_smile_point.text = "\(appDelegate.total_smileage)"
+        setGraph()
+    }
+    
 }
 
+public extension Int {
+    
+    public static func random(min n: Int, max x: Int) -> Int {
+        let min = n < 0 ? 0 : n
+        let max = x + 1
+        let v = UInt32(max < min ? 0 : max - min)
+        let r = Int(arc4random_uniform(v))
+        return min + r
+    }
+}

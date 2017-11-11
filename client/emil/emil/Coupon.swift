@@ -32,14 +32,6 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         shadow.layer.shadowOffset = CGSize(width: 5, height: 5) // 距離
         shadow.layer.shadowRadius = 5 // ぼかし量
         
-        /* 画面下部の新規追加ボタンの設定 */
-        AddCouponBtn.backgroundColor = UIColor.orange4()
-        AddCouponBtn.layer.borderWidth = 2.0
-        //        AddCouponBtn.layer.borderColor = UIColor.red.cgColor
-        AddCouponBtn.layer.cornerRadius = 10.0
-        AddCouponBtn.setTitleColor(UIColor.white,for: UIControlState.normal)
-        AddCouponBtn.layer.masksToBounds = true
-        
         Coupon.delegate = self
         Coupon.dataSource = self
         
@@ -60,21 +52,7 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = Coupon.dequeueReusableCell(withIdentifier: "CustomCellTableViewCell", for: indexPath) as! CustomCellTableViewCell
         cell.gift.text = appDelegate.coupon_data[indexPath.row].gift
         cell.smileage.text = String(appDelegate.coupon_data[indexPath.row].smileage)
-        
-        /***** セルに表示する画像の宣言 *****/
-        if let path: String = Bundle.main.path(forResource: "check", ofType: "png") {
-            cell.couponImg.image = UIImage(contentsOfFile: path)
-        }else {
-            print("指定されたファイルが見つかりません")
-        }
-        
-        if let path: String = Bundle.main.path(forResource: "smileage", ofType: "png") {
-            cell.logo.image = UIImage(contentsOfFile: path)
-        }else {
-            print("指定されたファイルが見つかりません")
-        }
-        /***** ここまでセルに表示する画像の宣言 *****/
-        
+                
         return cell
     }
     
@@ -99,14 +77,28 @@ class Coupon: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let defaultAction: UIAlertAction = UIAlertAction(title: "使用", style: UIAlertActionStyle.default, handler:{
             
             (action: UIAlertAction!) -> Void in
-            print("OK")
-            self.t = self.ta - self.appDelegate.coupon_data[indexPath.row].smileage
-            self.ta = self.t
             
-            self.Total.text = String(self.t)
-            self.appDelegate.coupon_data.remove(at: indexPath.row)
-            self.Coupon.reloadData()
-            
+            /*
+             クーポンを利用して、必要なスマイレージが使用可能なスマイレージを
+             超えていた場合を検知してアラートを出す。超えていない場合は消費できる。
+             */
+            if self.ta > self.appDelegate.coupon_data[indexPath.row].smileage{
+                self.t = self.t - self.appDelegate.coupon_data[indexPath.row].smileage
+                self.ta = self.t
+                
+                self.Total.text = String(self.t)
+                self.appDelegate.coupon_data.remove(at: indexPath.row)
+                self.Coupon.reloadData()
+            } else {
+                let err_alert: UIAlertController = UIAlertController(title: "エラー", message: "スマイレージが足りません", preferredStyle:  UIAlertControllerStyle.alert)
+
+                let ok = UIAlertAction(title: "OK", style: .default) { action in
+                }
+                
+                err_alert.addAction(ok)
+                
+                self.present(err_alert, animated: true, completion: nil)
+            }
         })
         // キャンセルボタン
         let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.cancel, handler:{
